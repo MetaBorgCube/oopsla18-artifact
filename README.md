@@ -76,7 +76,7 @@ the static semantics, some example programs, and a test suite.
   If the number of failed or remaining constraints is not zero, the
   program did not successfully type check.
 
-- Every language projects includes a test suite for the static
+- Every language project includes a test suite for the static
   semantics of the language, located in the `test` directory. Test
   files have a `.spt` extension, and can be opened and inspected in an
   editor by double-clicking. Failing tests are marked with a red
@@ -85,7 +85,7 @@ the static semantics, some example programs, and a test suite.
   marked. Use the console or the progress window to check if the tests
   are still running.
 
-- All tests in a directory can be run by selected the directory in the
+- All tests in a directory can be run by selecting the directory in the
   `Package Explorer`, and selecting the `Spoofax (meta) > Run all
   selected tests` menu. A test runner will appear listing all tests,
   showing progress and which tests success or failure. Running all
@@ -118,8 +118,8 @@ lazy substitution, using the scope graph model.
 > definition of subtyping of structural record types."
 
 This extended model and a resolution algorithm are implemented as part
-of the Statix implementation. A variety of queries are used
-through-out the Statix specifications of the case studies.
+of the Statix implementation. A variety of queries are used throughout
+the Statix specifications of the case studies.
 
 > "We introduce Statix, a declarative, language for specifying type
 > systems. The language provides simple guarded rules for definition
@@ -128,7 +128,7 @@ through-out the Statix specifications of the case studies.
 > declarative and an operational semantics of Statix."
 
 The Statix language, including a type checker and a solver, are
-implemented and included as part of Spoofax.
+implemented and included as a part of Spoofax.
 
 > "We simplify the resolution calculus and algorithm of Néron et
 > al. [2015a] and Van Antwerpen et al. [2016] by not including imports
@@ -140,23 +140,29 @@ implemented and included as part of Spoofax.
 > generalize resolution by namespace/query-specific parameterization
 > with visibility policies instead of global policies."
 
-This specs implement binding patterns -- such as class inheritance --
-using the simplified model that is part of Statix. In earlier work,
-these patterns were implemented using the import mechanism. Global
-resolution policies, for example how to resolve methods or variables
-in FGJ, are provided in the Statix language for convenience, but every
-query can redefine every parameter of the resolution calculus.
+The case study specifications implement binding patterns -- such as
+class inheritance -- using the simplified model that is a part of
+Statix. In earlier work, these patterns were implemented using the
+import mechanism. Global resolution policies, for example how to
+resolve methods or variables in FGJ, are provided in the Statix
+language for convenience, but every query can redefine every parameter
+of the resolution calculus.
+
+Statix provides integrated support for guaranteeing that resolution in
+incomplete graphs is safe, following the principles discussed in the
+paper Section 5.2.
 
 > "We have evaluated the Statix language in three case studies: the
 > simply-typed lambda calculus with records [Pierce 2002] (STLC-REC),
 > System F [Girard 1972; Reynolds 1974], and Featherweight Generic
 > Java [Igarashi et al. 2001]."
 
-The artifact contains fully functional language implementations of the
-case studies. The test suites give us trust in the correctness of the
-given specifications.
+The artifact contains fully functional type checkers for the case
+study languages. The test suites give us trust in the correctness of
+the given specifications.
 
-The following claims from the paper are not supported by this artifact:
+The following claims from the paper are not supported by this
+artifact:
 
 > "We extend the visual notation of scope graph diagrams with scoped
 > relations, which provides a useful language for explaining patterns
