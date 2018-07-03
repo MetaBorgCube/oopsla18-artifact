@@ -170,49 +170,87 @@ artifact:
 > visual notation with unresolved (constraint) nodes for illustrating
 > the resolution process."
 
-The visual notation is not part of Statix or of its output.
+The visual notation is not a part of Statix or of its output.
 
 ## Case study languages
 
-### General remarks:
+We briefly summarize the case study languages that we have
+implemented. Each of the specifications were developed with a focus on
+object language feature coverage, correctness, and clarity of
+specification.
 
-- Focus is on expressivity and correctness
+The type checkers that the specifications implement are not (yet)
+meant to be performant, nor to provide good error messages.
 
-- Not on performance
+### STLCrec
 
-- Not on good error messages
+This case study implements an extension of the simply-typed
+lambda-calculus with records. The language contains the following
+constructs:
 
-### STLC+Rec
+- numbers and addition (`1 + 2`);
 
-- STLC, let-expressions
+- functions and identifiers (`fun (x : num) { x }`), as well as
+  function application (`f 1` where `f` is a function typed
+  expression);
 
-- Records with structural subtyping
+- type ascription expressions (`1 + 2 : num`);
 
-- Record extension
+- `let` expressions (e.g., `let x = 1 in x`);
 
-- Type let binders
+- records (`{x = 1}`) and record types (`{x : num}`) with structural
+  subtyping;
+  
+- record extension expressions (`{x = 1|r}` where `r` is a record
+  typed expression); and
+  
+- type let binders and type identifier references (`type r = {x : num}
+  in fun(y : r) { y.x }`).
+
+The syntax of the language is given in
+`lang.stlcrec/syntax/STLCrec.sdf3`.
+
+The Statix semantics is given in `lang.stlcrec/trans/statics.stx`.
+
+For object language tests, consult the files in `lang.stlcrec/test/`.
 
 ### System F
 
-- STLC, let-expressions
+This case study implements System F with type let binders. The
+language contains the following constructs:
 
-- Type binders (`Fun`)
+- functions, identifiers, function application, let expressions, type
+  ascription expressions, and type let binders (using the same syntax
+  as STLCrec);
 
-- Type let binders
+- type binders (`Fun(T) { fun(x : T) { x } }`) and forall type
+  quantifiers (`T => T -> T`);
+  
+The syntax of the language is given in
+`lang.sysf/syntax/SystemF.sdf3`.
 
-### FGJ
+The Statix semantics is given in `lang.sysf/trans/statics.stx`.
 
-- Classes
+For object language tests, consult the files in `lang.sysf/test/`.
 
-- Generics
+### Featherweight Generic Java (FGJ)
 
-Differences from FGJ:
+This case study language implements FGJ. The language contains the
+same constructs as in the original paper [Featherweight Java: a
+minimal core calculus for Java and
+GJ](https://doi.org/10.1145/503502.503505) by Igarashi, Pierce, and
+Wadler. Our FGJ language has a few minor differences in syntax and
+semantics from the original FGJ language:
 
-- Constructor arguments do not have to match fields.
+- In our variant of FGJ, it is not mandatory that each class has a
+  constructor parameter for each field in the class.
+  
+- In our variant of FGJ, fields can be initialized with arbitrary
+  expressions, whereas original FGJ only allows variable references as
+  the right-hand side of field initialization expressions.
 
-- Fields can be initialized with arbitrary expressions, instead of just variable references.
-
-- No check that every field is initialized.
+- Our variant of FGJ does not check that every field is explicitly
+  initialized.
 
 ## Evaluation Instructions
 
