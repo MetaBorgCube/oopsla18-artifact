@@ -1,5 +1,33 @@
 # Artifact for OOPSLA'18 Submission 'Scopes as Types'
 
+> The artifact’s documentation should include the following:
+> 
+> * A list of claims from the paper supported by the artifact, and how/why.
+> * A list of claims from the paper not supported by the artifact, and how/why.
+>
+> Example: Performance claims cannot be reproduced in VM, authors are
+> not allowed to redistribute specific benchmarks, etc. Artifact
+> reviewers can then center their reviews / evaluation around these
+> specific claims.
+
+## Artifact Description
+
+This is the artifact accompanying the OOPSLA'18 submission 'Scopes as
+Types'. This artifact consists of the following:
+
+- The paper draft in `scopes-as-types.pdf`, which is updated to match
+  the artifact. Note that the paper submitted as part of the HotCRP
+  submission, is the original draft, which may deviate in places from
+  this artifact.
+
+- An implementation of the Statix language, embedded in the Spoofax
+  language workbench.
+
+- Language implementations for the three case studies in the
+  paper. Each implementation is fully operational and includes a
+  static semantics definition in Statix, some example programs, and a
+  test suite to test the static semantics.
+
 ## Getting Started
 
 > Getting Started Guide
@@ -35,9 +63,11 @@ tested.
 The case studies are implemented in the Spoofax language workbench,
 which supports Statix is one of its meta-languages.
 
-- Download the appropriate Spoofax archive for you platform from
-  https://github.com/MetaBorgCube/oopsla18-artifact/releases/ or
-  https://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/659/artifact/dist/spoofax/eclipse/.
+- Download the appropriate Spoofax archive for your platform from
+  https://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/661/artifact/dist/spoofax/eclipse/. The
+  `spoofax-*-jre.*` archives include a JRE, and do not depend on a
+  compatible local Java installation. It is recommended to use a
+  version with an included JRE.
 
 - Install and run Spoofax by unpacking the archive, and starting
   `eclipse` or `eclipse.exe`. When Spoofax is started, it will ask for
@@ -92,19 +122,82 @@ the static semantics, some example programs, and a test suite.
   open individual files, or run fewer tests by selecting
   subdirectories of the `test` directory.
 
+## Claims Supported by the Artifact
+
+This artifact supports the following claims from the paper:
+
+> "We show that viewing scopes as types enables us to model the
+> internal structure of types in a range of non-simple type systems
+> (including structural records and generic classes) using the generic
+> representation of scopes. Further, we show that relations between
+> such types can be expressed in terms of generalized scope graph
+> queries. We extend scope graphs with scoped relations and queries."
+
+The specifications of all three languages model non-syntactic aspects
+of types, such as record and class structure, or type variables and
+lazy substitution, using the scope graph model.
+
+> "We extend the scope graph model with scoped relations to model the
+> association of types with declarations and explicit substitutions in
+> the instantiation of parameterized types. We generalize name
+> resolution in scope graph from resolution from references to
+> declarations to general queries for scoped relations. This enables
+> flexible definition of queries for reachable or visible declarations
+> and other properties, such as the visible record fields in the
+> definition of subtyping of structural record types."
+
+This extended model and a resolution algorithm are implemented as part
+of the Statix implementation. A variety of queries are used
+through-out the Statix specifications of the case studies.
+
+> "We introduce Statix, a declarative, language for specifying type
+> systems. The language provides simple guarded rules for definition
+> of user-defined constraints with unification and scope graph
+> construction and resolution as built-in theories. We provide a
+> declarative and an operational semantics of Statix."
+
+The Statix language, including a type checker and a solver, are
+implemented and included as part of Spoofax.
+
+> "We simplify the resolution calculus and algorithm of Néron et
+> al. [2015a] and Van Antwerpen et al. [2016] by not including imports
+> as a primitive. We demonstrate how imports (and other name- and
+> type-dependent name resolution schemas) can be encoded using the
+> scopes as types approach. We discuss how these patterns depend on
+> resolution in incomplete scope graphs, and how the algorithm
+> guarantees soundness of resolution in incomplete graphs. We further
+> generalize resolution by namespace/query-specific parameterization
+> with visibility policies instead of global policies."
+
+This specs implement binding patterns -- such as class inheritance --
+using the simplified model that is part of Statix. In earlier work,
+these patterns were implemented using the import mechanism. Global
+resolution policies, for example how to resolve methods or variables
+in FGJ, are provided in the Statix language for convenience, but every
+query can redefine every parameter of the resolution calculus.
+
+> "We have evaluated the Statix language in three case studies: the
+> simply-typed lambda calculus with records [Pierce 2002] (STLC-REC),
+> System F [Girard 1972; Reynolds 1974], and Featherweight Generic
+> Java [Igarashi et al. 2001]."
+
+The artifact contains fully functional language implementations of the
+case studies. The test suites give us trust in the correctness of the
+given specifications.
+
+The following claims from the paper are not supported by this artifact:
+
+> "We extend the visual notation of scope graph diagrams with scoped
+> relations, which provides a useful language for explaining patterns
+> of names and types in programming languages. We also extend the
+> visual notation with unresolved (constraint) nodes for illustrating
+> the resolution process."
+
+The visual notation is not part of Statix or of its output.
+
 ## Case study languages
 
 ### General remarks:
-
-> The artifact’s documentation should include the following:
-> 
-> * A list of claims from the paper supported by the artifact, and how/why.
-> * A list of claims from the paper not supported by the artifact, and how/why.
->
-> Example: Performance claims cannot be reproduced in VM, authors are
-> not allowed to redistribute specific benchmarks, etc. Artifact
-> reviewers can then center their reviews / evaluation around these
-> specific claims.
 
 - Focus is on expressivity and correctness
 
@@ -144,7 +237,7 @@ Differences from FGJ:
 
 - No check that every field is initialized.
 
-## Step by Step Instructions
+## Evaluation Instructions
 
 > Step-by-Step Instructions for how you propose to evaluate your
 > artifact (with appropriate connections to the relevant sections of
@@ -163,3 +256,8 @@ Differences from FGJ:
 > inputs); if there are warnings that are safe to be ignored, explain
 > which ones they are.
 
+- review tests suites on success and coverage
+
+- write own tests (in example programs or SPT files)
+
+- tinker with the specs (advanced?!)
