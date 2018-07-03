@@ -252,10 +252,10 @@ semantics from the original FGJ language:
 - Our variant of FGJ does not check that every field is explicitly
   initialized.
 
-## Evaluation Instructions
+<!-- ## Evaluation Instructions -->
 
-- review tests suites on success and coverage
+<!-- - review tests suites on success and coverage -->
 
-- write own tests (in example programs or SPT files)
+<!-- - write own tests (in example programs or SPT files) -->
 
-- tinker with the specs (advanced?!)
+<!-- - tinker with the specs (advanced?!) -->
