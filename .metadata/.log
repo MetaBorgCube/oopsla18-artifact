@@ -32,3 +32,303 @@ Binding(ALT+COMMAND+B,
 
 !ENTRY org.eclipse.oomph.setup.ui 1 0 2018-07-03 17:50:16.453
 !MESSAGE Setup tasks were performed during startup updating 71 preferences. See '/Users/hendrik/slde/oopsla18-artifact.git/spoofax.app/Contents/Eclipse/configuration/org.eclipse.oomph.setup/setup.log' for details
+!SESSION 2018-07-03 20:12:40.038 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180330-0640
+java.version=1.8.0_162
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_NL
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/hendrik/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/hendrik/.eclipse_keyring
+
+!ENTRY org.eclipse.core.net 1 0 2018-07-03 20:13:01.632
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.metaborg.spoofax.eclipse 2 4 2018-07-03 20:16:56.609
+!MESSAGE Interrupting Thread[Worker-6,5,main], killing after 10000ms
+in org.metaborg.spoofax.eclipse.job.ThreadKillerJob (Worker-0)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:03.362
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:03.383
+!MESSAGE |  * [] == [(?wld663-12,(?wld664-13,?T-2))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:03.384
+!MESSAGE |  * query Optional[Rel("typeOfDecl")] filter { ?lbls34 :- resolveFilterWf9(Occurrence("Fld",["z"],TermId("",20)), ?lbls34) } and { ?d54 :- resolveFilterEq9(Occurrence("Fld",["z"],TermId("",20)), ?d54) } min { ?l134, ?l234 :- resolveMinOrd9(Occurrence("Fld",["z"],TermId("",20)), ?l134, ?l234) } and { ?wld661, ?wld662 } in Scope("","rs_15-2") |-> [(?wld663-12,(?wld664-13,?T-2))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:03.384
+!MESSAGE |  * typeOfExp(Scope("","s_1-1"), FAccess(Rec([FldInit("x",Num("1")),FldInit("y",Num("2")),FldInit("h",Rec([]))]),"z"), ?T-2)
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:03.385
+!MESSAGE |  * programOK(FAccess(Rec([FldInit("x",Num("1")),FldInit("y",Num("2")),FldInit("h",Rec([]))]),"z"))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:04.921
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:04.921
+!MESSAGE |  * [] == [(?wld677-138,(?wld678-139,?T-134))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:04.923
+!MESSAGE |  * query Optional[Rel("typeOfDecl")] filter { ?lbls36 :- resolveFilterWf9(Occurrence("Fld",["y"],TermId("",5)), ?lbls36) } and { ?d56 :- resolveFilterEq9(Occurrence("Fld",["y"],TermId("",5)), ?d56) } min { ?l136, ?l236 :- resolveMinOrd9(Occurrence("Fld",["y"],TermId("",5)), ?l136, ?l236) } and { ?wld673, ?wld674 } in Scope("","rs_41-5") |-> [(?wld677-138,(?wld678-139,?T-134))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:04.924
+!MESSAGE |  * subField(Scope("","rs_41-5"), (#-rs_20-3,Occurrence("Fld",["y"],TermId("",5))))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:04.924
+!MESSAGE |  * subFields(Scope("","rs_41-5"), [(#-rs_20-3,Occurrence("Fld",["y"],TermId("",5)))])
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:04.925
+!MESSAGE |  * subFields(Scope("","rs_41-5"), [(#-rs_20-3,Occurrence("Fld",["x"],TermId("",2))),(#-rs_20-3,Occurrence("Fld",["y"],TermId("",5)))])
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:04.925
+!MESSAGE |  * subType(REC(Scope("","rs_41-5")), REC(Scope("","rs_20-3")))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:04.926
+!MESSAGE |  * typeOfExp(Scope("","s_let_7-2"), App(Fun("p",TypeRef("point"),Plus(FAccess(Var("p"),"x"),FAccess(Var("p"),"y"))),Rec([FldInit("x",Num("1")),FldInit("z",Num("3"))])), NUM())
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:04.926
+!MESSAGE |  * typeOfExp(Scope("","s_let_7-2"), TAS(App(Fun("p",TypeRef("point"),Plus(FAccess(Var("p"),"x"),FAccess(Var("p"),"y"))),Rec([FldInit("x",Num("1")),FldInit("z",Num("3"))])),NumType()), NUM())
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:04.926
+!MESSAGE |  * typeOfExp(Scope("","s_1-1"), TypeLet("point",RecType([FldType("x",NumType()),FldType("y",NumType())]),TAS(App(Fun("p",TypeRef("point"),Plus(FAccess(Var("p"),"x"),FAccess(Var("p"),"y"))),Rec([FldInit("x",Num("1")),FldInit("z",Num("3"))])),NumType())), NUM())
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:04.926
+!MESSAGE |  * programOK(TypeLet("point",RecType([FldType("x",NumType()),FldType("y",NumType())]),TAS(App(Fun("p",TypeRef("point"),Plus(FAccess(Var("p"),"x"),FAccess(Var("p"),"y"))),Rec([FldInit("x",Num("1")),FldInit("z",Num("3"))])),NumType())))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 2 4 2018-07-03 20:18:04.944
+!MESSAGE Unsolved constraints: [subType(?T-134, NUM())]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:05.943
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:05.944
+!MESSAGE |  * [] == [(?wld677-150,(?wld678-151,?T-146))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:05.946
+!MESSAGE |  * query Optional[Rel("typeOfDecl")] filter { ?lbls36 :- resolveFilterWf9(Occurrence("Fld",["x"],TermId("",4)), ?lbls36) } and { ?d56 :- resolveFilterEq9(Occurrence("Fld",["x"],TermId("",4)), ?d56) } min { ?l136, ?l236 :- resolveMinOrd9(Occurrence("Fld",["x"],TermId("",4)), ?l136, ?l236) } and { ?wld673, ?wld674 } in Scope("","rs_74-7") |-> [(?wld677-150,(?wld678-151,?T-146))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:05.946
+!MESSAGE |  * subField(Scope("","rs_74-7"), (#-rs_114-8,Occurrence("Fld",["x"],TermId("",4))))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:05.947
+!MESSAGE |  * subFields(Scope("","rs_74-7"), [(#-rs_114-8,Occurrence("Fld",["x"],TermId("",4)))])
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:05.947
+!MESSAGE |  * subType(REC(Scope("","rs_74-7")), REC(Scope("","rs_114-8")))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:05.948
+!MESSAGE |  * subField(Scope("","rs_33-4"), (#-rs_72-6,Occurrence("Fld",["p"],TermId("",3))))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:05.948
+!MESSAGE |  * subFields(Scope("","rs_33-4"), [(#-rs_72-6,Occurrence("Fld",["p"],TermId("",3)))])
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:05.948
+!MESSAGE |  * subType(REC(Scope("","rs_33-4")), REC(Scope("","rs_72-6")))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:05.949
+!MESSAGE |  * typeOfExp(Scope("","s_let_16-5"), App(Var("f"),Var("q")), NUM())
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:05.949
+!MESSAGE |  * typeOfExp(Scope("","s_let_16-5"), TAS(App(Var("f"),Var("q")),NumType()), NUM())
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:05.949
+!MESSAGE |  * typeOfExp(Scope("","s_let_7-2"), Let("q",Rec([FldInit("p",Rec([FldInit("y",Num("10"))]))]),TAS(App(Var("f"),Var("q")),NumType())), NUM())
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:05.950
+!MESSAGE |  * typeOfExp(Scope("","s_1-1"), Let("f",Fun("r",RecType([FldType("p",RecType([FldType("x",NumType())]))]),FAccess(FAccess(Var("r"),"p"),"x")),Let("q",Rec([FldInit("p",Rec([FldInit("y",Num("10"))]))]),TAS(App(Var("f"),Var("q")),NumType()))), NUM())
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:05.950
+!MESSAGE |  * programOK(Let("f",Fun("r",RecType([FldType("p",RecType([FldType("x",NumType())]))]),FAccess(FAccess(Var("r"),"p"),"x")),Let("q",Rec([FldInit("p",Rec([FldInit("y",Num("10"))]))]),TAS(App(Var("f"),Var("q")),NumType()))))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 2 4 2018-07-03 20:18:05.960
+!MESSAGE Unsolved constraints: [subType(?T-146, NUM())]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:09.847
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:09.848
+!MESSAGE |  * [] == [(?wld677-143,(?wld678-144,?T-139))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:09.850
+!MESSAGE |  * query Optional[Rel("typeOfDecl")] filter { ?lbls36 :- resolveFilterWf9(Occurrence("Fld",["x"],TermId("",2)), ?lbls36) } and { ?d56 :- resolveFilterEq9(Occurrence("Fld",["x"],TermId("",2)), ?d56) } min { ?l136, ?l236 :- resolveMinOrd9(Occurrence("Fld",["x"],TermId("",2)), ?l136, ?l236) } and { ?wld673, ?wld674 } in Scope("","rs2_70-7") |-> [(?wld677-143,(?wld678-144,?T-139))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:09.850
+!MESSAGE |  * subField(Scope("","rs2_70-7"), (#-rs2_42-5 Label("R") #-rs_23-3,Occurrence("Fld",["x"],TermId("",2))))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:09.850
+!MESSAGE |  * subFields(Scope("","rs2_70-7"), [(#-rs2_42-5 Label("R") #-rs_23-3,Occurrence("Fld",["x"],TermId("",2)))])
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:09.851
+!MESSAGE |  * subFields(Scope("","rs2_70-7"), [(#-rs2_42-5 Label("R") #-rs_23-3,Occurrence("Fld",["y"],TermId("",5))),(#-rs2_42-5 Label("R") #-rs_23-3,Occurrence("Fld",["x"],TermId("",2)))])
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:09.851
+!MESSAGE |  * subFields(Scope("","rs2_70-7"), [(#-rs2_42-5,Occurrence("Fld",["c"],TermId("",18))),(#-rs2_42-5 Label("R") #-rs_23-3,Occurrence("Fld",["y"],TermId("",5))),(#-rs2_42-5 Label("R") #-rs_23-3,Occurrence("Fld",["x"],TermId("",2)))])
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:09.851
+!MESSAGE |  * subType(REC(Scope("","rs2_70-7")), REC(Scope("","rs2_42-5")))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:09.852
+!MESSAGE |  * typeOfExp(Scope("","s_let_27-6"), TAS(FExtend(Rec([FldInit("c",Num("6"))]),[FldInit("y",Num("5"))]),TypeRef("colorpoint")), REC(Scope("","rs2_42-5")))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:09.852
+!MESSAGE |  * typeOfExp(Scope("","s_let_16-4"), TypeLet("colorpoint",ERecType(TypeRef("point"),[FldType("c",TypeRef("color"))]),TAS(FExtend(Rec([FldInit("c",Num("6"))]),[FldInit("y",Num("5"))]),TypeRef("colorpoint"))), REC(Scope("","rs2_42-5")))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:09.852
+!MESSAGE |  * typeOfExp(Scope("","s_let_7-2"), TypeLet("color",NumType(),TypeLet("colorpoint",ERecType(TypeRef("point"),[FldType("c",TypeRef("color"))]),TAS(FExtend(Rec([FldInit("c",Num("6"))]),[FldInit("y",Num("5"))]),TypeRef("colorpoint")))), REC(Scope("","rs2_42-5")))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:09.853
+!MESSAGE |  * typeOfExp(Scope("","s_1-1"), TypeLet("point",RecType([FldType("x",NumType()),FldType("y",NumType())]),TypeLet("color",NumType(),TypeLet("colorpoint",ERecType(TypeRef("point"),[FldType("c",TypeRef("color"))]),TAS(FExtend(Rec([FldInit("c",Num("6"))]),[FldInit("y",Num("5"))]),TypeRef("colorpoint"))))), REC(Scope("","rs2_42-5")))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:09.853
+!MESSAGE |  * programOK(TypeLet("point",RecType([FldType("x",NumType()),FldType("y",NumType())]),TypeLet("color",NumType(),TypeLet("colorpoint",ERecType(TypeRef("point"),[FldType("c",TypeRef("color"))]),TAS(FExtend(Rec([FldInit("c",Num("6"))]),[FldInit("y",Num("5"))]),TypeRef("colorpoint"))))))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 2 4 2018-07-03 20:18:09.870
+!MESSAGE Unsolved constraints: [subType(?T-139, NUM())]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:14.900
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:14.900
+!MESSAGE |  * [] == [(?wld659-8,(?wld660-9,?T-2))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:14.902
+!MESSAGE |  * query Optional[Rel("typeOfDecl")] filter { ?lbls33 :- resolveFilterWf9(Occurrence("Var",["x"],TermId("",1)), ?lbls33) } and { ?d53 :- resolveFilterEq9(Occurrence("Var",["x"],TermId("",1)), ?d53) } min { ?l133, ?l233 :- resolveMinOrd9(Occurrence("Var",["x"],TermId("",1)), ?l133, ?l233) } and { ?wld657, ?wld658 } in Scope("","s_1-1") |-> [(?wld659-8,(?wld660-9,?T-2))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:14.903
+!MESSAGE |  * typeOfExp(Scope("","s_1-1"), Var("x"), ?T-2)
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:14.903
+!MESSAGE |  * programOK(Var("x"))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:15.059
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:15.060
+!MESSAGE |  * [] == [(?wld659-17,(?wld660-18,?typeOfExp117-11))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:15.061
+!MESSAGE |  * query Optional[Rel("typeOfDecl")] filter { ?lbls33 :- resolveFilterWf9(Occurrence("Var",["x"],TermId("",2)), ?lbls33) } and { ?d53 :- resolveFilterEq9(Occurrence("Var",["x"],TermId("",2)), ?d53) } min { ?l133, ?l233 :- resolveMinOrd9(Occurrence("Var",["x"],TermId("",2)), ?l133, ?l233) } and { ?wld657, ?wld658 } in Scope("","s_1-1") |-> [(?wld659-17,(?wld660-18,?typeOfExp117-11))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:15.062
+!MESSAGE |  * typeOfExp(Scope("","s_1-1"), Var("x"), ?typeOfExp117-11)
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:15.062
+!MESSAGE |  * typeOfExp(Scope("","s_1-1"), Let("x",Var("x"),Plus(Var("x"),Num("1"))), NUM())
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-03 20:18:15.062
+!MESSAGE |  * programOK(Let("x",Var("x"),Plus(Var("x"),Num("1"))))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
