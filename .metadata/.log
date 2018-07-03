@@ -1,0 +1,34 @@
+!SESSION 2018-07-03 17:50:06.336 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180330-0640
+java.version=1.8.0_162
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_NL
+Framework arguments:  -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -keyring /Users/hendrik/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -data /Users/hendrik/slde/oopsla18-artifact.git/ -product org.eclipse.epp.package.java.product -keyring /Users/hendrik/.eclipse_keyring
+
+!ENTRY org.eclipse.core.net 1 0 2018-07-03 17:50:08.574
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.jface 2 0 2018-07-03 17:50:10.141
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2018-07-03 17:50:10.141
+!MESSAGE A conflict occurred for ALT+COMMAND+B:
+Binding(ALT+COMMAND+B,
+	ParameterizedCommand(Command(org.eclipse.debug.ui.commands.SkipAllBreakpoints,Skip All Breakpoints,
+		Sets whether or not any breakpoint should suspend execution,
+		Category(org.eclipse.debug.ui.category.run,Run/Debug,Run/Debug command category,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@437c1a87,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+COMMAND+B,
+	ParameterizedCommand(Command(org.eclipse.ui.project.buildProject,Build Project,
+		Build the selected project,
+		Category(org.eclipse.ui.category.project,Project,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5b55c3d6,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.oomph.setup.ui 1 0 2018-07-03 17:50:16.453
+!MESSAGE Setup tasks were performed during startup updating 71 preferences. See '/Users/hendrik/slde/oopsla18-artifact.git/spoofax.app/Contents/Eclipse/configuration/org.eclipse.oomph.setup/setup.log' for details

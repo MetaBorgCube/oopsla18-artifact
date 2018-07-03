@@ -1,0 +1,5 @@
+Console.console_tab_width=4
+Console.highWaterMark=88000
+Console.limitConsoleOutput=false
+eclipse.preferences.version=1
+org.eclipse.debug.ui.build_before_launch=false

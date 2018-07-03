@@ -1,0 +1,19 @@
+INDEX VERSION 1.130+/Users/hendrik/slde/oopsla18-artifact.git/.metadata/.plugins/org.eclipse.jdt.core
+2365714727.index
+1800733572.index
+3951110374.index
+3914914213.index
+3548324500.index
+992871258.index
+389770878.index
+1092222718.index
+4066768628.index
+1436502275.index
+2202301623.index
+1784103145.index
+786597162.index
+762412249.index
+1271342938.index
+3113260176.index
+3375024500.index
+3885431046.index

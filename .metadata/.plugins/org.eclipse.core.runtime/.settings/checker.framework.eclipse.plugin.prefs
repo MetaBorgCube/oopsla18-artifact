@@ -1,0 +1,5 @@
+checker_args=[]
+checker_custom_classes=org.metaborg.checker.posthoc_generics.PosthocGenericsChecker
+checker_prefs=true
+checker_verbose=true
+eclipse.preferences.version=1
