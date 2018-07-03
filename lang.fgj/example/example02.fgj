@@ -1,0 +1,13 @@
+class A<> extends Object<> {
+  B<> b
+  A(B<> b) {
+    super();
+    this.b = b;
+  }
+}
+
+class B<> extends Object<> {
+  B() {
+    super();
+  }
+}

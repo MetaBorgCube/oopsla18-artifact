@@ -1,0 +1,12 @@
+class A<> extends Object<> {
+  B<> f;
+  A() {
+    super();
+  }
+}
+class B<> extends A<> {
+  A<> f;
+  B() {
+    super();
+  }
+}

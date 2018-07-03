@@ -1,0 +1,8 @@
+class A<T extends Object<>> extends Object<> {
+  A() {
+    super();
+  }
+  <> A<T> self() {
+    return this;
+  }
+}

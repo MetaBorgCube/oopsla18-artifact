@@ -1,0 +1,27 @@
+  let
+    class A<X extends Object<>> extends Object<> {
+      X f;
+      A(X f) { 
+        super(); 
+        this.f = f;
+      }
+      <> X getF() {
+        return this.f;
+      }
+    }
+    class B<> extends Object<> {
+      B() { super(); }
+    }
+    class D<> extends B<> {
+      D() { super(); }
+    }
+    class C<X extends B<>> extends Object<> {
+      X f;
+      C(X f) { 
+        super(); 
+        this.f = f;
+      }
+    }
+  in
+//    new C<B<>>(new A<B<>>(new B<>()).<>getF())
+    new C<B<>>(new A<B<>>(new D<>()).<>getF())

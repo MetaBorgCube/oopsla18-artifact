@@ -1,0 +1,10 @@
+let
+  class A<> extends Object<> {
+    A() {
+      super();
+    }
+    <> A<> const() {
+      return new A<>();
+    }
+  }
+in new A<>().<>const()  

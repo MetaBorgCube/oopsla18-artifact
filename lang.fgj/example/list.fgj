@@ -1,0 +1,48 @@
+class A<> extends Object<> { 
+  A() { super(); }
+}
+
+class B<> extends Object<> {
+  B() { super(); } 
+ 
+}
+
+class List<T extends Object<>> extends Object<> {
+  List() { super(); }
+//  <T extends Object<>> T hd() { 
+//    return this.hd();
+//  }
+//  <T extends Object<>> List<T> tl() {   
+//    return tl();
+//  }
+}
+
+class Nil<T extends Object<>> extends List<T> {
+  Nil() { super(); }
+}
+
+class Cons<T extends Object<>> extends List<T> {
+  T hd;
+  List<T> tl;
+  Cons(T hd, List<T> tl) {
+    super(); 
+    this.hd = hd;
+    this.tl = tl;
+  }
+  <T extends Object<>> T hd() {   
+    return this.hd;
+  }
+  <T extends Object<>> List<T> tl() {   
+    return this.tl;
+  }
+}
+
+class Main<> extends Object<> {
+  Main() {
+    super();
+  }
+  <> List<A<>> mkList() {
+    return new Nil<A<>>();
+  }
+}
+

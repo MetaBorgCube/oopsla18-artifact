@@ -1,0 +1,16 @@
+class A<T extends Object<>, S extends Object<>> extends Object<> {
+  A() {
+    super();
+  }
+  <> B<T, S> self() {
+    return new B<T, S>();
+  }
+}
+class B<U extends Object<>, V extends Object<>> extends Object<> {
+  B() {
+    super();
+  }
+  <> A<U, V> self2() {
+    return new A<U, V>();
+  }
+}
