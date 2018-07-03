@@ -24,28 +24,6 @@ test initialize multiple class fields [[
   }
 ]] analysis succeeds
 
-test multiple fields with same name [[
-  class A<> extends Object<> {
-    Object<> f;
-    Object<> f;
-    A(Object<> f) {
-      super();
-      this.f = f;
-    }
-  }
-]] analysis fails
-
-test missing field initialization [[
-  class A<> extends Object<> {
-    Object<> f;
-    Object<> g;
-    A(Object<> f, Object<> g) {
-      super();
-      this.f = f;
-    }
-  }
-]] analysis fails
-
 test initialize field with incorrect type [[
   class A<> extends Object<> {
     A() { super(); }

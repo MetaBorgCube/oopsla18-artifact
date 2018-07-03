@@ -20,12 +20,3 @@ test multiple class program [[
   }
 ]] analysis succeeds
 
-test multiple classes with same name [[
-  class A<> extends Object<> {
-    A() { super(); }
-  }
-  class A<> extends Object<> {
-    A() { super(); }
-  }
-]] analysis fails
-

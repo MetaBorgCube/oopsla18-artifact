@@ -10,7 +10,8 @@ class B<U extends Object<>, V extends Object<>> extends Object<> {
   B() {
     super();
   }
-  <> A<U, V> self2() {
+  <> A<U, V> self() {
     return new A<U, V>();
   }
 }
+  
