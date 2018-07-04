@@ -168,8 +168,8 @@ of the resolution calculus.
 Statix provides integrated support for guaranteeing that resolution in
 incomplete graphs is safe, following the principles discussed in the
 paper Section 5.2. Specific tests for this behavior can be found in
-the `statix.tests` project, in the `test/scopegraphs/relations.spt`
-folder; search for tests with _incomplete_ in the name.
+the `statix.tests` project, in `test/scopegraphs/relations.spt`;
+search for tests with _incomplete_ in the name.
 
 > "We have evaluated the Statix language in three case studies: the
 > simply-typed lambda calculus with records [Pierce 2002] (STLC-REC),
