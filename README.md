@@ -76,7 +76,7 @@ the static semantics, some example programs, and a test suite.
   If the number of failed or remaining constraints is not zero, the
   program did not successfully type check.
 
-- Every language projects includes a test suite for the static
+- Every language project includes a test suite for the static
   semantics of the language, located in the `test` directory. Test
   files have a `.spt` extension, and can be opened and inspected in an
   editor by double-clicking. Failing tests are marked with a red
@@ -85,7 +85,7 @@ the static semantics, some example programs, and a test suite.
   marked. Use the console or the progress window to check if the tests
   are still running.
 
-- All tests in a directory can be run by selected the directory in the
+- All tests in a directory can be run by selecting the directory in the
   `Package Explorer`, and selecting the `Spoofax (meta) > Run all
   selected tests` menu. A test runner will appear listing all tests,
   showing progress and which tests success or failure. Running all
@@ -118,8 +118,8 @@ lazy substitution, using the scope graph model.
 > definition of subtyping of structural record types."
 
 This extended model and a resolution algorithm are implemented as part
-of the Statix implementation. A variety of queries are used
-through-out the Statix specifications of the case studies.
+of the Statix implementation. A variety of queries are used throughout
+the Statix specifications of the case studies.
 
 > "We introduce Statix, a declarative, language for specifying type
 > systems. The language provides simple guarded rules for definition
@@ -128,7 +128,7 @@ through-out the Statix specifications of the case studies.
 > declarative and an operational semantics of Statix."
 
 The Statix language, including a type checker and a solver, are
-implemented and included as part of Spoofax.
+implemented and included as a part of Spoofax.
 
 > "We simplify the resolution calculus and algorithm of Néron et
 > al. [2015a] and Van Antwerpen et al. [2016] by not including imports
@@ -140,23 +140,31 @@ implemented and included as part of Spoofax.
 > generalize resolution by namespace/query-specific parameterization
 > with visibility policies instead of global policies."
 
-This specs implement binding patterns -- such as class inheritance --
-using the simplified model that is part of Statix. In earlier work,
-these patterns were implemented using the import mechanism. Global
-resolution policies, for example how to resolve methods or variables
-in FGJ, are provided in the Statix language for convenience, but every
-query can redefine every parameter of the resolution calculus.
+The case study specifications implement binding patterns -- such as
+class inheritance -- using the simplified model that is a part of
+Statix. In earlier work, these patterns were implemented using the
+import mechanism. Global resolution policies, for example how to
+resolve methods or variables in FGJ, are provided in the Statix
+language for convenience, but every query can redefine every parameter
+of the resolution calculus.
+
+Statix provides integrated support for guaranteeing that resolution in
+incomplete graphs is safe, following the principles discussed in the
+paper Section 5.2.
 
 > "We have evaluated the Statix language in three case studies: the
 > simply-typed lambda calculus with records [Pierce 2002] (STLC-REC),
 > System F [Girard 1972; Reynolds 1974], and Featherweight Generic
 > Java [Igarashi et al. 2001]."
 
-The artifact contains fully functional language implementations of the
-case studies. The test suites give us trust in the correctness of the
-given specifications.
+The artifact contains type checkers for the case study
+languages. These type checkers are not (yet) meant to be performant,
+nor to provide good error messages. For now, the type checkers merely
+check whether programs type check or not. The test suites give us
+trust in the correctness of the given specifications.
 
-The following claims from the paper are not supported by this artifact:
+The following claims from the paper are not supported by this
+artifact:
 
 > "We extend the visual notation of scope graph diagrams with scoped
 > relations, which provides a useful language for explaining patterns
@@ -164,54 +172,206 @@ The following claims from the paper are not supported by this artifact:
 > visual notation with unresolved (constraint) nodes for illustrating
 > the resolution process."
 
-The visual notation is not part of Statix or of its output.
+The visual notation that the paper introduces and demonstrates is not
+a part of Statix or of its output.
 
 ## Case study languages
 
-### General remarks:
+We briefly summarize the case study languages that we have
+implemented. Each of the specifications were developed with a focus on
+object language feature coverage, correctness, and clarity of
+specification.
 
-- Focus is on expressivity and correctness
+### STLCrec
 
-- Not on performance
+This case study implements an extension of the simply-typed
+lambda-calculus with records. The language contains the following
+constructs:
 
-- Not on good error messages
+- numbers and addition (`1 + 2`);
 
-### STLC+Rec
+- functions and identifiers (`fun (x : num) { x }`), as well as
+  function application (`f 1` where `f` is a function-typed
+  expression);
 
-- STLC, let-expressions
+- type ascription expressions (`1 + 2 : num`);
 
-- Records with structural subtyping
+- `let` expressions (e.g., `let x = 1 in x`);
 
-- Record extension
+- records (`{x = 1}`) and record types (`{x : num}`) with structural
+  subtyping;
+  
+- record extension expressions (`{x = 1} with r` where `r` is a
+  record-typed expression); and
+  
+- type let binders and type identifier references (`type r = {x : num}
+  in fun(y : r) { y.x }`).
 
-- Type let binders
+#### Syntax, Semantics, and Example Files
+
+The syntax of the language is given in
+`lang.stlcrec/syntax/STLCrec.sdf3`.
+
+The Statix semantics is given in `lang.stlcrec/trans/statics.stx`.
+
+For object language tests, consult the files in `lang.stlcrec/test/`.
+
+#### About the Semantics
+
+Section 3.1 of the paper contains example illustrations of scope
+graphs for STLCrec programs. Here we highlight some of the core
+features of the semantics and its use of scopes as types:
+
+- Record field names and function parameter names reside in separate
+  namespaces, `Fld` and `Var` respectively. Each namespace has its own
+  name resolution policy (see their `name-resolution` signatures in
+  `lang.stlcrec/trans/statics.stx`).
+
+- There are two notions of type in the language:
+  1. Type expressions (`TypeExp`): syntactic type representations in
+     object language programs.
+  2. Types (`Type`): semantic type representations used in the type
+     system specification.
+
+- `typeOfTypeExp` translates type expressions (`TypeExp`) into types
+  (`Type`).
+
+- Record types (`REC`) are given by a scope in the scope graph.
+
+- Record extension is modeled as an `R`-labeled edge in the scope
+  graph; see, e.g., `typeOfExp(s, FExtend(e, finits))` in
+  `lang.stlcrec/trans/statics.stx`.
+  
+- Records with duplicate field names are disallowed via the
+  `unique`ness check in `fieldInitsOK` in `lang.stlcrec/trans/statics.stx`.
+
+- Record subtyping is modeled using two queries over the scope graph
+  (see `subType(REC(s_sub), REC(s_sup))` in
+  `lang.stlcrec/trans/statics.stx`):
+  1. the query given by `allFields` finds all visible fields in the
+     super type.
+  2. the query given by `subFields` checks that there is exactly one
+     visible field of a matching (sub-)type for every field in the
+     super type.
 
 ### System F
 
-- STLC, let-expressions
+This case study implements System F with type let binders. The
+language contains the following constructs:
 
-- Type binders (`Fun`)
+- functions, identifiers, function application, let expressions, type
+  ascription expressions, and type let binders (using the same syntax
+  as STLCrec);
 
-- Type let binders
+- type binders (`Fun(T) { fun(x : T) { x } }`) and forall type
+  quantifiers (`T => T -> T`);
+  
+#### Syntax, Semantics, and Example Files
 
-### FGJ
+The syntax of the language is given in
+`lang.sysf/syntax/SystemF.sdf3`.
 
-- Classes
+The Statix semantics is given in `lang.sysf/trans/statics.stx`.
 
-- Generics
+For object language tests, consult the files in `lang.sysf/test/`.
 
-Differences from FGJ:
+#### About the Semantics
 
-- Constructor arguments do not have to match fields.
+We highlight some of the core features of our semantics for System F
+and its use of scopes as types:
 
-- Fields can be initialized with arbitrary expressions, instead of just variable references.
+- Type parameter names and function parameter names reside in separate
+  namespaces.
 
-- No check that every field is initialized.
+- Forall-types (`ALL`) are modeled as a scope with two declarations in
+  it: one declaration that records the formal parameter; and one
+  declaration that is associated with the type of the body of the
+  forall-type. In this sense, the `ALL` type is reminiscent of a
+  two-field record.
+  
+- Type application uses the `instWith` relation to add a substitution
+  to the scope of an `ALL` type, and projects the body from the
+  resulting record (see `typeOfExp(s, TApp(e, t)) = T` in
+  `lang.sysf/trans/statics.stx`). Projections are evaluated lazily:
+  the `PROJ` type represents a lazily postponed projection.
+  
+- When we match on a type we first apply `strict` to it, which
+  normalizes `PROJ` types by stricting the postponed projection. The
+  type resuling from applying `strict` is in WHNF: the substitution is
+  pushed inwards in a lazy fashion. The precise definitions of `strict`
+  and type `norm`alization are given in
+  `lang.sysf/trans/statics.stx`. Laziness is not built into Statix,
+  so the lazy substitution strategy is encoded rather explicitly in
+  the aforementioned definition of `norm`. `strict` and `norm` are
+  mostly generically defined: the same notions are used to implement
+  generics in FGJ, as described in the paper Section 3.3.
 
-## Evaluation Instructions
+- When we compare two types (e.g., in `typeOfExp(s, App(e1, e2))` in
+  `lang.sysf/trans/statics.stx`) we use `typeEq` which implements the
+  following scheme for comparing types:
+  
+  1. If either of the types we are comparing is a `PROJ`ection, apply
+     strictness.
+  
+  2. Numbers and function types are compared in the obvious
+     compositional way.
+     
+  3. `ALL`-types are compared by inventing a fresh place holder value
+     `PL` and substituting this in each of the quantified types for
+     the two `ALL` types that we are comparing. We then compare the
+     quantified types by projecting the bodies from the scopes with
+     these substitutions.
 
-- review tests suites on success and coverage
+### Featherweight Generic Java (FGJ)
 
-- write own tests (in example programs or SPT files)
+This case study language implements FGJ. The language contains the
+same constructs as in the original paper [Featherweight Java: a
+minimal core calculus for Java and
+GJ](https://doi.org/10.1145/503502.503505) by Igarashi, Pierce, and
+Wadler. Our FGJ language has a few minor differences in syntax and
+semantics from the original FGJ language:
 
-- tinker with the specs (advanced?!)
+- In our variant of FGJ, it is not mandatory that each class has a
+  constructor parameter for each field in the class.
+  
+- In our variant of FGJ, fields can be initialized with arbitrary
+  expressions, whereas original FGJ only allows variable references as
+  the right-hand side of field initialization expressions.
+
+- Our variant of FGJ does not check that every field is explicitly
+  initialized.
+
+#### Syntax, Semantics, and Example Files
+
+The syntax of the language is given in
+`lang.fgj/syntax/FGJ.sdf3`.
+
+The Statix semantics is given in `lang.fgj/trans/statics.stx`.
+
+For object language tests, consult the files in `lang.fgj/test/`.
+
+#### About the Semantics
+
+Section 3.2 and 3.3 of the paper contains example illustrations of
+scope graphs for STLCrec programs. Here we highlight some of the core
+features of the semantics and its use of scopes as types:
+
+- Inheritance is represented using a dedicated "super" edge in the
+  scope graph.
+
+- Subtyping is defined in terms of a query over the scope graph: the
+  `extendsQ` constraint represents a query which checks that we can
+  traverse a sequence of "super" edges in the graph to connect a
+  sub-class with its super-class.
+  
+- Generic type parameter substitution and class type comparison is
+  implemented using similar machinery as summarized for System F
+  above.
+
+<!-- ## Evaluation Instructions -->
+
+<!-- - review tests suites on success and coverage -->
+
+<!-- - write own tests (in example programs or SPT files) -->
+
+<!-- - tinker with the specs (advanced?!) -->
