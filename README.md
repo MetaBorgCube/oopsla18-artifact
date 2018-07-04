@@ -11,12 +11,16 @@ Types'. This artifact consists of the following:
   this artifact.
 
 - An implementation of the Statix language, embedded in the Spoofax
-  language workbench.
+  language workbench. A test suite of unit tests for Statix is
+  included in the artifact.
 
 - Language implementations for the three case studies in the
-  paper. Each implementation is fully operational and includes a
-  static semantics definition in Statix, some example programs, and a
-  test suite to test the static semantics.
+  paper. Each implementation includes a static semantics definition in
+  Statix, some example programs, and a test suite to test the static
+  semantics. The implementations provide source code editors with
+  syntax highlighting and type checking. The result of type checking
+  is simply yes or no at the moment, and no detailed error messages
+  are shown in the editors.
 
 ## Getting Started
 
@@ -35,7 +39,7 @@ The case studies are implemented in the Spoofax language workbench,
 which supports Statix is one of its meta-languages.
 
 - Download the appropriate Spoofax archive for your platform from
-  https://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/661/artifact/dist/spoofax/eclipse/. The
+  https://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/662/artifact/dist/spoofax/eclipse/. The
   `spoofax-*-jre.*` archives include a JRE, and do not depend on a
   compatible local Java installation. It is recommended to use a
   version with an included JRE.
@@ -92,6 +96,10 @@ the static semantics, some example programs, and a test suite.
   tests (especially for FGJ) takes quite a while. For faster results,
   open individual files, or run fewer tests by selecting
   subdirectories of the `test` directory.
+
+The `statix.tests` project contains unit tests for Statix itself. It
+contains a `test` folder with tests similar to the tests in the
+language projects.
 
 ## Claims Supported by the Artifact
 

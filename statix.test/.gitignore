@@ -4,7 +4,4 @@
 /target
 /.polyglot.metaborg.yaml
 
-/.classpath
-/.settings
-
 *.stxresult

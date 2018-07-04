@@ -332,3 +332,423 @@ in mb.statix.spoofax.STX_solve_constraint (Worker-7)
 !MESSAGE |  * programOK(Let("x",Var("x"),Plus(Var("x"),Num("1"))))
 in mb.statix.spoofax.STX_solve_constraint (Worker-7)
 
+!SESSION 2018-07-04 13:26:04.619 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180330-0640
+java.version=1.8.0_162
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_NL
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/hendrik/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/hendrik/.eclipse_keyring
+
+!ENTRY org.eclipse.core.net 1 0 2018-07-04 13:26:13.679
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:20.727
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:20.748
+!MESSAGE |  * false
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:20.856
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:20.856
+!MESSAGE |  * c(1)
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:20.945
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:20.946
+!MESSAGE |  * false
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:20.946
+!MESSAGE |  * c(1)
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 2 4 2018-07-04 13:27:28.683
+!MESSAGE Unsolved constraints: [c(1, 2)]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:29.109
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:29.110
+!MESSAGE |  * c(1, [2|?wld90-1])
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 2 4 2018-07-04 13:27:29.602
+!MESSAGE Unsolved constraints: [c(?x-1)]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 2 4 2018-07-04 13:27:29.704
+!MESSAGE Unsolved constraints: [c(?x-1)]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:31.002
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:31.003
+!MESSAGE |  * c([2,3])
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:31.423
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:31.424
+!MESSAGE |  * [] == [2,3]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:31.549
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:31.549
+!MESSAGE |  * Scope("","s2_2-2") == Scope("","s1_1-1")
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:31.551
+!MESSAGE |  * new Scope("","s2_2-2"), Scope("","s2_2-2")
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 2 4 2018-07-04 13:27:31.715
+!MESSAGE Unsolved constraints: [Scope("","s1_1-1") -Label("P")-> ?s2-2]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 2 4 2018-07-04 13:27:31.796
+!MESSAGE Unsolved constraints: [?s1-1 -Label("P")-> Scope("","s2_2-1")]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 2 4 2018-07-04 13:27:32.134
+!MESSAGE Unsolved constraints: [?s-1 -Decl()-[] Occurrence("Var",["x"],NoId())]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 2 4 2018-07-04 13:27:32.312
+!MESSAGE Unsolved constraints: [Scope("","s_1-1") -Decl()-[] Occurrence("Var",[?x-2],NoId())]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 2 4 2018-07-04 13:27:32.488
+!MESSAGE Unsolved constraints: [Scope("","s_1-1") -Decl()-[] Occurrence("Var",["x"],?x-2)]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 2 4 2018-07-04 13:27:32.698
+!MESSAGE Unsolved constraints: [Scope("","s_1-1") -Rel("r")-[] (1,?i-2)]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 2 4 2018-07-04 13:27:33.072
+!MESSAGE Unsolved constraints: [Scope("","s_1-1") -Rel("r")-[] (?i-2,2)]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:33.825
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:33.826
+!MESSAGE |  * [] == [?wld95-2]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:33.828
+!MESSAGE |  * query Optional[Decl()] filter { ?lbls6 :- resolveFilterWf9(Occurrence("Var",["y"],NoId()), ?lbls6) } and { ?d3 :- resolveFilterEq9(Occurrence("Var",["y"],NoId()), ?d3) } min { ?l13, ?l23 :- resolveMinOrd9(Occurrence("Var",["y"],NoId()), ?l13, ?l23) } and { ?wld87, ?wld88 } in Scope("","s_1-1") |-> [?wld95-2]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:40.020
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:40.021
+!MESSAGE |  * [] == [(?wld190-3,(?wld191-4,?wld192-5))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:40.022
+!MESSAGE |  * query Optional[Rel("r")] filter { ?ls :- pathMatch[e](?ls) } and { ?u11 :- {?u12, ?u13} ?u11 == (?u12,?u13), 23 == ?u12, 2 == ?u13 } min { ?wld186, ?wld187 :- false } and { ?wld188, ?wld189 :- false } in Scope("","s1_1-1") |-> [(?wld190-3,(?wld191-4,?wld192-5))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:40.233
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:40.234
+!MESSAGE |  * [(#-s_1-1,(1,1)),(#-s_1-1,(1,2))] == [(?wld198-2,(?wld199-3,?wld200-4))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:40.235
+!MESSAGE |  * query Optional[Rel("r")] filter { ?ls :- pathMatch[e](?ls) } and { ?u14 :- {?u15, ?u16, ?wld193} ?u14 == (?u15,?u16), 1 == ?u15, ?wld193 == ?u16 } min { ?wld194, ?wld195 :- false } and { ?wld196, ?wld197 :- false } in Scope("","s_1-1") |-> [(?wld198-2,(?wld199-3,?wld200-4))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:40.604
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:40.605
+!MESSAGE |  * [(#-s_1-1,(1,1)),(#-s_1-1,(2,3))] == [(?wld98-2,(?wld99-3,3))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:40.606
+!MESSAGE |  * query Optional[Rel("r")] filter { ?ls :- pathMatch[e](?ls) } and { ?u7 :- {?u8, ?wld93} ?u7 == ?u8, ?wld93 == ?u8 } min { ?wld94, ?wld95 :- false } and { ?wld96, ?wld97 :- false } in Scope("","s_1-1") |-> [(?wld98-2,(?wld99-3,3))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:40.956
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:40.957
+!MESSAGE |  * [] == [(?wld142-2,(?wld143-3,?wld186-4))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:40.958
+!MESSAGE |  * query Optional[Rel("r")] filter { ?ls :- pathMatch[e](?ls) } and { ?u12 :- {?u13} ?u12 == ?u13, 3 == ?u13 } min { ?wld107, ?wld108 :- false } and { ?wld109, ?wld141 :- false } in Scope("","s_1-1") |-> [(?wld142-2,(?wld143-3,?wld186-4))]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:43.302
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:43.302
+!MESSAGE |  * None() == Some(?wld96-1)
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:43.390
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:43.391
+!MESSAGE |  * Some(1) == Some(2)
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:43.806
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:43.807
+!MESSAGE |  * 12 == 7
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:43.978
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:43.979
+!MESSAGE |  * c(7)
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:44.417
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:44.418
+!MESSAGE |  * [] == [7]
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:44.828
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:44.829
+!MESSAGE |  * c([])
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:44.924
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:44.924
+!MESSAGE |  * c([7])
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:45.026
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:45.027
+!MESSAGE |  * c([7,8])
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:45.130
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:45.131
+!MESSAGE |  * c([7])
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:46.603
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:46.603
+!MESSAGE |  * Occurrence("Var",["x"],?wld225-1) == Occurrence("Var",["y"],?wld226-2)
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:46.839
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:46.840
+!MESSAGE |  * Occurrence("Var1",["x"],?wld239-1) == Occurrence("Var2",["y"],?wld240-2)
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:47.033
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:47.033
+!MESSAGE |  * Scope("","s2_2-2") == Scope("","s1_1-1")
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:47.034
+!MESSAGE |  * new Scope("","s2_2-2"), Scope("","s2_2-2")
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:47.342
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:47.342
+!MESSAGE |  * NoId() == Scope("","s_1-1")
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:47.344
+!MESSAGE |  * new NoId()
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:48.107
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:48.108
+!MESSAGE |  * c(Occurrence("Var",["x"],NoId()))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:48.446
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:48.447
+!MESSAGE |  * Scope("","s2_2-2") == Scope("","s1_1-1")
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:48.448
+!MESSAGE |  * new Scope("","s2_2-2"), Scope("","s2_2-2")
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:48.937
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:48.938
+!MESSAGE |  * eq(Occurrence("Var",["x"],TermId("",14)), Occurrence("Var",["x"],TermId("",19)))
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:49.321
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:49.322
+!MESSAGE |  * "Spoofax" == "Stratego"
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:49.494
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:49.494
+!MESSAGE |  * c("NaBL2")
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:49.986
+!MESSAGE | Failed
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+
+
+!ENTRY org.metaborg.spoofax.eclipse 4 4 2018-07-04 13:27:49.987
+!MESSAGE |  * (7,"int") == (8,"int")
+in mb.statix.spoofax.STX_solve_constraint (Worker-7)
+

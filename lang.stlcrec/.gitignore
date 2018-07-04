@@ -3,8 +3,4 @@
 /src-gen
 /target
 
-/.classpath
-/.settings
-/.factorypath
-
 /.polyglot.metaborg.yaml
