@@ -157,9 +157,11 @@ paper Section 5.2.
 > System F [Girard 1972; Reynolds 1974], and Featherweight Generic
 > Java [Igarashi et al. 2001]."
 
-The artifact contains fully functional type checkers for the case
-study languages. The test suites give us trust in the correctness of
-the given specifications.
+The artifact contains type checkers for the case study
+languages. These type checkers are not (yet) meant to be performant,
+nor to provide good error messages. For now, the type checkers merely
+check whether programs type check or not. The test suites give us
+trust in the correctness of the given specifications.
 
 The following claims from the paper are not supported by this
 artifact:
@@ -170,7 +172,8 @@ artifact:
 > visual notation with unresolved (constraint) nodes for illustrating
 > the resolution process."
 
-The visual notation is not a part of Statix or of its output.
+The visual notation that the paper introduces and demonstrates is not
+a part of Statix or of its output.
 
 ## Case study languages
 
@@ -178,9 +181,6 @@ We briefly summarize the case study languages that we have
 implemented. Each of the specifications were developed with a focus on
 object language feature coverage, correctness, and clarity of
 specification.
-
-The type checkers that the specifications implement are not (yet)
-meant to be performant, nor to provide good error messages.
 
 ### STLCrec
 
