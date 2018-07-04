@@ -49,11 +49,17 @@ which supports Statix is one of its meta-languages.
   a workspace; select the artifact root directory. Workspaces can be
   changed using the `File > Switch Workspace` menu, if necessary.
   
+- After start-up, wait until the task `Building workspace...` is not
+  shown in the bottom right status bar anymore.
+  
 - Build all language projects using the `Project > Build All`
   menu. After a successful language build, the console shows something
   like:
   
       Reloading language project eclipse:///lang.sysf
+
+  Individual languages can be rebuilt by selecting the project in the
+  `Package Explorer`, and selecting `Project > Build` from the menu.
 
 ### Inspecting the Language Projects
 
@@ -118,7 +124,7 @@ lazy substitution, using the scope graph model.
 
 > "We extend the scope graph model with scoped relations to model the
 > association of types with declarations and explicit substitutions in
-> the instantiation of parameterized types. We generalize name
+> the instantiation of parametrized types. We generalize name
 > resolution in scope graph from resolution from references to
 > declarations to general queries for scoped relations. This enables
 > flexible definition of queries for reachable or visible declarations
@@ -126,8 +132,9 @@ lazy substitution, using the scope graph model.
 > definition of subtyping of structural record types."
 
 This extended model and a resolution algorithm are implemented as part
-of the Statix implementation. A variety of queries are used throughout
-the Statix specifications of the case studies.
+of the Statix implementation. Many tests for different resolution
+scenarios are included in the `statix.tests` project, in the
+`test/scopegraphs` directory.
 
 > "We introduce Statix, a declarative, language for specifying type
 > systems. The language provides simple guarded rules for definition
@@ -136,7 +143,9 @@ the Statix specifications of the case studies.
 > declarative and an operational semantics of Statix."
 
 The Statix language, including a type checker and a solver, are
-implemented and included as a part of Spoofax.
+implemented and included as a part of Spoofax. The tests in
+`statix.tests` document and test the behavior of the solver for
+different Statix programs.
 
 > "We simplify the resolution calculus and algorithm of Néron et
 > al. [2015a] and Van Antwerpen et al. [2016] by not including imports
@@ -158,7 +167,9 @@ of the resolution calculus.
 
 Statix provides integrated support for guaranteeing that resolution in
 incomplete graphs is safe, following the principles discussed in the
-paper Section 5.2.
+paper Section 5.2. Specific tests x for this behavior can be found in
+the `statix.tests` project, in `test/scopegraphs/relations.spt`;
+search for tests with _incomplete_ in the name.
 
 > "We have evaluated the Statix language in three case studies: the
 > simply-typed lambda calculus with records [Pierce 2002] (STLC-REC),
@@ -166,7 +177,7 @@ paper Section 5.2.
 > Java [Igarashi et al. 2001]."
 
 The artifact contains type checkers for the case study
-languages. These type checkers are not (yet) meant to be performant,
+languages. These type checkers are not (yet) meant to be efficient,
 nor to provide good error messages. For now, the type checkers merely
 check whether programs type check or not. The test suites give us
 trust in the correctness of the given specifications.
@@ -375,11 +386,3 @@ features of the semantics and its use of scopes as types:
 - Generic type parameter substitution and class type comparison is
   implemented using similar machinery as summarized for System F
   above.
-
-<!-- ## Evaluation Instructions -->
-
-<!-- - review tests suites on success and coverage -->
-
-<!-- - write own tests (in example programs or SPT files) -->
-
-<!-- - tinker with the specs (advanced?!) -->
