@@ -40,3 +40,15 @@ test church booleans [[
   let if = Fun(A){ fun(x: B){ fun(y: A){ fun(z: A){ x[A] y z } } } } in
     if[B] t f t
 ]] analysis succeeds 
+
+test shadowing type substitution [[
+  let f = Fun(A) { fun(x : A => A -> A) { 42 } } in
+  let g = fun(y : (B => B -> B) -> num) { 42 } in
+    g (f [num])
+]] analysis succeeds
+
+test escaping forall [[
+  let f = Fun(A) { Fun(B) { fun(f : A -> B -> num) { 0 } } } in
+  let g = fun(g : B => (num -> B -> num) -> num) { 1 } in
+    g (f [num])
+]] analysis succeeds

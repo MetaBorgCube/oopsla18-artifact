@@ -191,7 +191,7 @@ constructs:
 - numbers and addition (`1 + 2`);
 
 - functions and identifiers (`fun (x : num) { x }`), as well as
-  function application (`f 1` where `f` is a function typed
+  function application (`f 1` where `f` is a function-typed
   expression);
 
 - type ascription expressions (`1 + 2 : num`);
@@ -201,11 +201,13 @@ constructs:
 - records (`{x = 1}`) and record types (`{x : num}`) with structural
   subtyping;
   
-- record extension expressions (`{x = 1|r}` where `r` is a record
-  typed expression); and
+- record extension expressions (`{x = 1} with r` where `r` is a
+  record-typed expression); and
   
 - type let binders and type identifier references (`type r = {x : num}
   in fun(y : r) { y.x }`).
+
+#### Syntax, Semantics, and Example Files
 
 The syntax of the language is given in
 `lang.stlcrec/syntax/STLCrec.sdf3`.
@@ -213,6 +215,44 @@ The syntax of the language is given in
 The Statix semantics is given in `lang.stlcrec/trans/statics.stx`.
 
 For object language tests, consult the files in `lang.stlcrec/test/`.
+
+#### About the Semantics
+
+Section 3.1 of the paper contains example illustrations of scope
+graphs for STLCrec programs. Here we highlight some of the core
+features of the semantics and its use of scopes as types:
+
+- Record field names and function parameter names reside in separate
+  namespaces, `Fld` and `Var` respectively. Each namespace has its own
+  name resolution policy (see their `name-resolution` signatures in
+  `lang.stlcrec/trans/statics.stx`).
+
+- There are two notions of type in the language:
+  1. Type expressions (`TypeExp`): syntactic type representations in
+     object language programs.
+  2. Types (`Type`): semantic type representations used in the type
+     system specification.
+
+- `typeOfTypeExp` translates type expressions (`TypeExp`) into types
+  (`Type`).
+
+- Record types (`REC`) are given by a scope in the scope graph.
+
+- Record extension is modeled as an `R`-labeled edge in the scope
+  graph; see, e.g., `typeOfExp(s, FExtend(e, finits))` in
+  `lang.stlcrec/trans/statics.stx`.
+  
+- Records with duplicate field names are disallowed via the
+  `unique`ness check in `fieldInitsOK` in `lang.stlcrec/trans/statics.stx`.
+
+- Record subtyping is modeled using two queries over the scope graph
+  (see `subType(REC(s_sub), REC(s_sup))` in
+  `lang.stlcrec/trans/statics.stx`):
+  1. the query given by `allFields` finds all visible fields in the
+     super type.
+  2. the query given by `subFields` checks that there is exactly one
+     visible field of a matching (sub-)type for every field in the
+     super type.
 
 ### System F
 
@@ -226,12 +266,61 @@ language contains the following constructs:
 - type binders (`Fun(T) { fun(x : T) { x } }`) and forall type
   quantifiers (`T => T -> T`);
   
+#### Syntax, Semantics, and Example Files
+
 The syntax of the language is given in
 `lang.sysf/syntax/SystemF.sdf3`.
 
 The Statix semantics is given in `lang.sysf/trans/statics.stx`.
 
 For object language tests, consult the files in `lang.sysf/test/`.
+
+#### About the Semantics
+
+We highlight some of the core features of our semantics for System F
+and its use of scopes as types:
+
+- Type parameter names and function parameter names reside in separate
+  namespaces.
+
+- Forall-types (`ALL`) are modeled as a scope with two declarations in
+  it: one declaration that records the formal parameter; and one
+  declaration that is associated with the type of the body of the
+  forall-type. In this sense, the `ALL` type is reminiscent of a
+  two-field record.
+  
+- Type application uses the `instWith` relation to add a substitution
+  to the scope of an `ALL` type, and projects the body from the
+  resulting record (see `typeOfExp(s, TApp(e, t)) = T` in
+  `lang.sysf/trans/statics.stx`). Projections are evaluated lazily:
+  the `PROJ` type represents a lazily postponed projection.
+  
+- When we match on a type we first apply `strict` to it, which
+  normalizes `PROJ` types by stricting the postponed projection. The
+  type resuling from applying `strict` is in WHNF: the substitution is
+  pushed inwards in a lazy fashion. The precise definitions of `strict`
+  and type `norm`alization are given in
+  `lang.sysf/trans/statics.stx`. Laziness is not built into Statix,
+  so the lazy substitution strategy is encoded rather explicitly in
+  the aforementioned definition of `norm`. `strict` and `norm` are
+  mostly generically defined: the same notions are used to implement
+  generics in FGJ, as described in the paper Section 3.3.
+
+- When we compare two types (e.g., in `typeOfExp(s, App(e1, e2))` in
+  `lang.sysf/trans/statics.stx`) we use `typeEq` which implements the
+  following scheme for comparing types:
+  
+  1. If either of the types we are comparing is a `PROJ`ection, apply
+     strictness.
+  
+  2. Numbers and function types are compared in the obvious
+     compositional way.
+     
+  3. `ALL`-types are compared by inventing a fresh place holder value
+     `PL` and substituting this in each of the quantified types for
+     the two `ALL` types that we are comparing. We then compare the
+     quantified types by projecting the bodies from the scopes with
+     these substitutions.
 
 ### Featherweight Generic Java (FGJ)
 
@@ -251,6 +340,33 @@ semantics from the original FGJ language:
 
 - Our variant of FGJ does not check that every field is explicitly
   initialized.
+
+#### Syntax, Semantics, and Example Files
+
+The syntax of the language is given in
+`lang.fgj/syntax/FGJ.sdf3`.
+
+The Statix semantics is given in `lang.fgj/trans/statics.stx`.
+
+For object language tests, consult the files in `lang.fgj/test/`.
+
+#### About the Semantics
+
+Section 3.2 and 3.3 of the paper contains example illustrations of
+scope graphs for STLCrec programs. Here we highlight some of the core
+features of the semantics and its use of scopes as types:
+
+- Inheritance is represented using a dedicated "super" edge in the
+  scope graph.
+
+- Subtyping is defined in terms of a query over the scope graph: the
+  `extendsQ` constraint represents a query which checks that we can
+  traverse a sequence of "super" edges in the graph to connect a
+  sub-class with its super-class.
+  
+- Generic type parameter substitution and class type comparison is
+  implemented using similar machinery as summarized for System F
+  above.
 
 <!-- ## Evaluation Instructions -->
 

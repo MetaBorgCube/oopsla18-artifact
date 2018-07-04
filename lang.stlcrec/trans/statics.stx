@@ -1,40 +1,43 @@
 module statics // Static semantics of STLCrec using scopes-as-types
 
 signature
-  sorts ID = string                          // $x$
-  sorts BinOp                                // $op$
+  sorts ID = string                         // $x$
+  sorts BinOp                               // $op$
 
-  sorts Exp constructors                     // $e$ :=
-    Num     : int -> Exp                     //      | $n$
-    Plus    : Exp * Exp -> Exp               //      | $e$ + $e$
-    Fun     : ID * TypeExp * Exp -> Exp      //      | fun ($x$ : $te$) { $e$ }
-    Var     : ID -> Exp                      //      | $x$
-    App     : Exp * Exp -> Exp               //      | $e$ $e$
-    Rec     : list(FldInit) -> Exp           //      | { $finit^\ast$ }
-    FAccess : Exp * ID -> Exp                //      | $e$.$x$
-    FExtend : Exp * list(FldInit) -> Exp     //      | { $e$ with $finit^\ast$ }
-    TypeLet : ID * TypeExp * Exp -> Exp      //      | type $x$ = $te$ in $e$
-    Let     : ID * Exp * Exp -> Exp          //      | type $x$ = $e$ in $e$
-    TAS     : Exp * TypeExp -> Exp           //      | $e$ : $te$
+  sorts Exp constructors                    // $e$ :=
+    Num     : int -> Exp                    //      | $n$
+    Plus    : Exp * Exp -> Exp      		//      | $e$ + $e$
+    Fun     : ID * TypeExp * Exp -> Exp     //      | fun ($x$ : $te$) { $e$ }
+    Var     : ID -> Exp                     //      | $x$
+    App     : Exp * Exp -> Exp              //      | $e$ $e$
+    Rec     : list(FldInit) -> Exp          //      | { $finit^\ast$ }
+    FAccess : Exp * ID -> Exp               //      | $e$.$x$
+    FExtend : Exp * list(FldInit) -> Exp    //      | { $e$ with $finit^\ast$ }
+    TypeLet : ID * TypeExp * Exp -> Exp     //      | type $x$ = $te$ in $e$
+    Let     : ID * Exp * Exp -> Exp         //      | type $x$ = $e$ in $e$
+    TAS     : Exp * TypeExp -> Exp          //      | $e$ : $te$
 
-  sorts FldInit constructors                 // $finit$ :=
-    FldInit : ID * Exp -> FldInit            //          | $x$ = $e$
+  sorts FldInit constructors                // $finit$ :=
+    FldInit : ID * Exp -> FldInit           //          | $x$ = $e$
 
-  sorts TypeExp constructors                 // $te$ :=
+  sorts TypeExp constructors                // $te$ :=
     NumType  : TypeExp                       //       | num
     FunType  : TypeExp * TypeExp -> TypeExp  //       | $te$ -> $te$
     RecType  : list(FldType) -> TypeExp      //       | { $ftype^\ast$ }
-    ERecType : TypeExp * list(FldType)
-               -> TypeExp                    //       | $te$ with { $ftype^\ast$ }
+    ERecType : TypeExp * list(FldType) -> TypeExp      //       | $te$ with { $ftype^\ast$ }
     TypeRef  : ID -> TypeExp                 //       | $x$
 
-  sorts FldType constructors                 // $ftype$ :=
-    FldType : ID * TypeExp -> FldType        //          | $x$ : $te$
+  sorts FldType constructors                // $ftype$ :=
+    FldType : ID * TypeExp -> FldType       //          | $x$ : $te$
 
   sorts Type constructors
     NUM   : Type
     FUN   : Type * Type -> Type
     REC   : scope -> Type
+
+  sorts Bool constructors
+    True  : Bool
+    False : Bool
 
   relations
     typeOfDecl : occurrence -> Type
@@ -113,7 +116,16 @@ rules
   fieldInitsOK maps fieldInitOK(*, list(*), *)
 
   fieldInitOK(s, FldInit(x, e), rs) :- {T}
-    rs -> Fld{x@x} with typeOfDecl typeOfExp(s, e).
+    rs -> Fld{x@x} with typeOfDecl typeOfExp(s, e),
+    unique(x, rs) == True().
+
+  unique : ID * scope -> Bool
+  unique(x, s) = isSingleton(ps) :-
+    Fld{x@x} in s |-> ps.
+  
+  isSingleton : list((path * occurrence)) -> Bool
+  isSingleton([_]) = True().
+  isSingleton(x)   = False() | x != [_].
 
 rules
 

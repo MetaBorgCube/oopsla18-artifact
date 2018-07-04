@@ -94,3 +94,23 @@ test record extension subtype [[
 test type ascription subtype [[
   {x = 1, y = 2} : {x : num}
 ]] analysis succeeds
+
+test duplicate field name 1 [[
+  {x = 1, x = 2}
+]] analysis fails
+
+test duplicate field name 2 [[
+  {x = 1, x = {y = 2} }
+]] analysis fails
+
+test duplicate record field extension 1 [[
+  {x = 1} with {x = 2}
+]] analysis succeeds
+
+test duplicate record field extension 2 [[
+  {x = 1} with {x = {y = 2}}
+]] analysis succeeds
+
+test duplicate record field fun type [[
+  fun (r : {x : num}) { r with {y = 3} } {x = 1, y = 2}
+]] analysis succeeds
