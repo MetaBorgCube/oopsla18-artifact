@@ -38,11 +38,10 @@ tested.
 The case studies are implemented in the Spoofax language workbench,
 which supports Statix is one of its meta-languages.
 
-- Download the appropriate Spoofax archive for your platform from
-  https://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/662/artifact/dist/spoofax/eclipse/. The
-  `spoofax-*-jre.*` archives include a JRE, and do not depend on a
-  compatible local Java installation. It is recommended to use a
-  version with an included JRE.
+- Download the appropriate Spoofax 2.5.0 release for your platform from
+  https://www.metaborg.org/en/latest/source/release/stable.html.  It is
+  recommended to use a version with an included JRE, since they do not require
+  a compatible local Java installation.
 
 - Install and run Spoofax by unpacking the archive, and starting
   `eclipse` or `eclipse.exe`. When Spoofax is started, it will ask for
@@ -86,26 +85,22 @@ the static semantics, some example programs, and a test suite.
   If the number of failed or remaining constraints is not zero, the
   program did not successfully type check.
 
-- Every language project includes a test suite for the static
-  semantics of the language, located in the `test` directory. Test
-  files have a `.spt` extension, and can be opened and inspected in an
-  editor by double-clicking. Failing tests are marked with a red
-  marker. If a file contains many tests, it may take a while before
-  the tests are finished and the success and failures are correctly
-  marked. Use the console or the progress window to check if the tests
-  are still running.
+- Every language project has an accompanying test project, which contains a
+  test suite for the static semantics of the language. Test files have a `.spt`
+  extension, and can be opened and inspected in an editor by double-clicking.
+  Failing tests are marked with a red marker. If a file contains many tests, it
+  may take a while before the tests are finished and the success and failures
+  are correctly marked. Use the console or the progress window to check if the
+  tests are still running.
 
-- All tests in a directory can be run by selecting the directory in the
-  `Package Explorer`, and selecting the `Spoofax (meta) > Run all
-  selected tests` menu. A test runner will appear listing all tests,
-  showing progress and which tests success or failure. Running all
-  tests (especially for FGJ) takes quite a while. For faster results,
-  open individual files, or run fewer tests by selecting
-  subdirectories of the `test` directory.
+- All tests in a project or directory can be run by selecting the project or
+  directory in the `Package Explorer`, and selecting the `Spoofax (meta) > Run
+  all selected tests` menu. A test runner will appear, listing all tests,
+  showing progress and which tests success or failure. Running all tests
+  (especially for FGJ) takes quite a while. For faster results, open individual
+  files, or run fewer tests by selecting subdirectories of the test project.
 
-The `statix.tests` project contains unit tests for Statix itself. It
-contains a `test` folder with tests similar to the tests in the
-language projects.
+The `statix.test` project contains unit tests for Statix itself.
 
 ## Claims Supported by the Artifact
 
@@ -131,10 +126,9 @@ lazy substitution, using the scope graph model.
 > and other properties, such as the visible record fields in the
 > definition of subtyping of structural record types."
 
-This extended model and a resolution algorithm are implemented as part
-of the Statix implementation. Many tests for different resolution
-scenarios are included in the `statix.tests` project, in the
-`test/scopegraphs` directory.
+This extended model and a resolution algorithm are implemented as part of the
+Statix implementation. Many tests for different resolution scenarios are
+included in the `statix.test` project, in the `scopegraphs` directory.
 
 > "We introduce Statix, a declarative, language for specifying type
 > systems. The language provides simple guarded rules for definition
@@ -142,10 +136,9 @@ scenarios are included in the `statix.tests` project, in the
 > construction and resolution as built-in theories. We provide a
 > declarative and an operational semantics of Statix."
 
-The Statix language, including a type checker and a solver, are
-implemented and included as a part of Spoofax. The tests in
-`statix.tests` document and test the behavior of the solver for
-different Statix programs.
+The Statix language, including a type checker and a solver, are implemented and
+included as a part of Spoofax. The tests in `statix.test` document and test the
+behavior of the solver for different Statix programs.
 
 > "We simplify the resolution calculus and algorithm of Néron et
 > al. [2015a] and Van Antwerpen et al. [2016] by not including imports
@@ -168,7 +161,7 @@ of the resolution calculus.
 Statix provides integrated support for guaranteeing that resolution in
 incomplete graphs is safe, following the principles discussed in the
 paper Section 5.2. Specific tests for this behavior can be found in
-the `statix.tests` project, in `test/scopegraphs/relations.spt`;
+the `statix.test` project, in `scopegraphs/relations.spt`;
 search for tests with _incomplete_ in the name.
 
 > "We have evaluated the Statix language in three case studies: the
@@ -233,7 +226,7 @@ The syntax of the language is given in
 
 The Statix semantics is given in `lang.stlcrec/trans/statics.stx`.
 
-For object language tests, consult the files in `lang.stlcrec/test/`.
+For object language tests, consult the files in `lang.stlcrec.test/`.
 
 #### About the Semantics
 
@@ -292,7 +285,7 @@ The syntax of the language is given in
 
 The Statix semantics is given in `lang.sysf/trans/statics.stx`.
 
-For object language tests, consult the files in `lang.sysf/test/`.
+For object language tests, consult the files in `lang.sysf.test/`.
 
 #### About the Semantics
 
@@ -367,7 +360,7 @@ The syntax of the language is given in
 
 The Statix semantics is given in `lang.fgj/trans/statics.stx`.
 
-For object language tests, consult the files in `lang.fgj/test/`.
+For object language tests, consult the files in `lang.fgj.test/`.
 
 #### About the Semantics
 
