@@ -11,8 +11,7 @@ imports
 
 rules // Analysis
 
-  editor-analyze: (ast, path, project-path) -> result
-    with result := <stx-analyze(|"statics", "programOK")> ast
+  editor-analyze = stx-editor-analyze(id|"statics", "programOK")
   
 rules // Editor services
   

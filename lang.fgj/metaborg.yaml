@@ -12,6 +12,9 @@ dependencies:
 runtime:
   nabl2:
     debug: analysis files custom
+exports:
+- language: ATerm
+  directory: src-gen/statix
 language:
   sdf:
     pretty-print: FGJ
