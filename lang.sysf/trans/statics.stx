@@ -5,20 +5,20 @@ signature
 
   sorts Exp constructors                      // e :=
     Num     : ID -> Exp                       //    | n
-    Fun     : ID * TypeExp * Exp -> Exp       //    | \(x : te) { e }
+    Fun     : ID * TypeExp * Exp -> Exp       //    | fun (x : te) { e }
     Var     : ID -> Exp                       //    | x
     App     : Exp * Exp -> Exp                //    | e e
-    TFun    : ID  * Exp -> Exp                //    | /\(X) { e }
+    TFun    : ID  * Exp -> Exp                //    | Fun (X) { e }
     TApp    : Exp * TypeExp -> Exp            //    | e[te]
     Let     : ID  * Exp * Exp -> Exp          //    | let x = e in e
-    LetT    : ID * TypeExp * Exp -> Exp       //    | let x : te = e in e
+    LetT    : ID * TypeExp * Exp -> Exp       //    | type X = te in e
     TAS     : Exp * TypeExp -> Exp            //    | e : t
 
   sorts TypeExp constructors                  // te :=
     NumType : TypeExp                         //     | num
     FunType : TypeExp * TypeExp -> TypeExp    //     | te -> te
     AllType : ID * TypeExp -> TypeExp         //     | X => te
-    VarType : ID -> TypeExp                   //     | te
+    VarType : ID -> TypeExp                   //     | X
 
   namespaces
     Var  : string
