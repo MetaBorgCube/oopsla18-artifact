@@ -1,7 +1,6 @@
 module statics // Static semantics of System F using scopes-as-types
 
 signature
-
   sorts ID = string
 
   sorts Exp constructors                      // e :=
@@ -22,28 +21,31 @@ signature
     VarType : ID -> TypeExp                   //     | te
 
   namespaces
-    Var   : string
-    TVar  : string
+    Var  : string
+    TVar : string
 
-  sorts Type constructors // variables: T, S, U
+  sorts Type constructors // variables: T, U, V
     NUM   : Type
     FUN   : Type * Type -> Type
-    ALL   : scope -> Type
+    ALL   : occurrence * scope -> Type
     TVAR  : occurrence -> Type
 
-    PROJ  : scope * occurrence -> Type
+    PROJB : scope -> Type
     PL    : scope -> Type
 
   relations
-    typeOfDecl : occurrence -> Type
+    var   : occurrence -> Type
+    body  : Type
+    type  : occurrence -> Type
+    subst : occurrence -> Type
 
   name-resolution
     labels
       P // Parent (lexical)
       I // Instantiation
 
-    resolve TVar  filter lexicalPathMatch min lexicalPathOrd
-    resolve Var   filter lexicalPathMatch min lexicalPathOrd
+    resolve Var  filter lexicalPathMatch min lexicalPathOrd
+    resolve TVar filter lexicalPathMatch min lexicalPathOrd
 
 rules // Reference resolution for type variables, variables
 
@@ -52,13 +54,31 @@ rules // Reference resolution for type variables, variables
 
   lexicalPathMatch(p)    :- pathMatch[P*](p).
   lexicalPathOrd(p1, p2) :- pathLt[$ < P](p1, p2).
-
+  
 rules
 
   programOK : Exp
   programOK(e) :- {s T}
     new s,
     typeOfExp(s, e, T).
+
+rules
+
+  typeOfTypeExp: scope * TypeExp -> Type
+
+  typeOfTypeExp(s, NumType()) = NUM().
+
+  typeOfTypeExp(s, FunType(t1, t2)) =
+    FUN(typeOfTypeExp(s, t1), typeOfTypeExp(s, t2)).
+
+  typeOfTypeExp(s, AllType(x, t)) = ALL(X, s_all) :-
+    new s_all, s_all -P-> s,
+    X == TVar{x@x},
+    s_all -> X with var TVAR(X),
+    !body[typeOfTypeExp(s_all, t)] in s_all.
+        
+  typeOfTypeExp(s, VarType(X)) = T :-
+    var of TVar{X@X} in s |-> [(_, (_, T))].
 
 rules
 
@@ -69,58 +89,42 @@ rules
   typeOfExp(s, Fun(x, t_arg, e)) = FUN(U, T) :- {s_fun}
     typeOfTypeExp(s, t_arg) == U,
     new s_fun, s_fun -P-> s,
-    s_fun -> Var{x@x} with typeOfDecl U,
+    s_fun -> Var{x@x} with type U,
     typeOfExp(s_fun, e) == T.
 
   typeOfExp(s, Var(x)) = T :-
-    typeOfDecl of Var{x@x} in s |-> [(_, (_, T))].
+    type of Var{x@x} in s |-> [(_, (_, T))].
 
-  typeOfExp(s, App(e1, e2)) = T :- {S U}
-    strict(typeOfExp(s, e1)) == FUN(S, T),
-    typeOfExp(s, e2) == U,
-    typeEq(S, U).
+  typeOfExp(s, App(e1, e2)) = T :- {U V}
+    strict(typeOfExp(s, e1)) == FUN(U, T),
+    typeOfExp(s, e2) == V,
+    typeEq(U, V).
 
-  typeOfExp(s, TFun(x, e)) = T :- {s_all d}
+  typeOfExp(s, TFun(x, e)) = ALL(X, s_all) :-
     new s_all, s_all -P-> s,
-    d == TVar{x@x},
-    s_all -> d with typeOfDecl TVAR(d),
-    all(s_all, x, typeOfExp(s_all, e)) == T.
+    X == TVar{x@x},
+    s_all -> X with var TVAR(X),
+    !body[typeOfExp(s_all, e)] in s_all.
 
-  typeOfExp(s, TApp(e, t)) = T :- {s_all}
-    strict(typeOfExp(s, e)) == ALL(s_all),
-    body(instWith(s_all, paramOf(s_all), typeOfTypeExp(s, t))) == T.
+  typeOfExp(s, TApp(e, t)) = PROJB(s_inst) :- {X s_all}
+    strict(typeOfExp(s, e)) == ALL(X, s_all),
+    new s_inst, s_inst -I-> s_all,
+    s_inst -> X with subst typeOfTypeExp(s, t).
     
-  typeOfExp(s, Let(x, e1, e2)) = S :- {s_let}
+  typeOfExp(s, Let(x, e1, e2)) = U :- {s_let}
     new s_let, s_let -P-> s,
-    s_let -> Var{x@x} with typeOfDecl typeOfExp(s, e1),
-    typeOfExp(s_let, e2) == S.    
+    s_let -> Var{x@x} with type typeOfExp(s, e1),
+    typeOfExp(s_let, e2) == U.
     
-  typeOfExp(s, LetT(x, t, e)) = S :- {s_let}
+  typeOfExp(s, LetT(x, t, e)) = U :- {s_let}
     new s_let, s_let -P-> s,
-    s_let -> TVar{x@x} with typeOfDecl typeOfTypeExp(s, t),
-    typeOfExp(s_let, e) == S.    
+    s -> TVar{x@x} with var typeOfTypeExp(s, t),
+    typeOfExp(s_let, e) == U.    
     
-  typeOfExp(s, TAS(e, t)) = T :- {S}
-    typeOfExp(s, e) == S,
+  typeOfExp(s, TAS(e, t)) = T :- {U}
+    typeOfExp(s, e) == U,
     typeOfTypeExp(s, t) == T,
-    typeEq(S, T).
-
-rules
-
-  typeOfTypeExp: scope * TypeExp -> Type
-
-  typeOfTypeExp(s, NumType()) = NUM().
-
-  typeOfTypeExp(s, FunType(t1, t2)) = FUN(typeOfTypeExp(s, t1), typeOfTypeExp(s, t2)).
-
-  typeOfTypeExp(s, AllType(x, t)) = T :- {s_all d}
-    new s_all, s_all -P-> s,
-    d == TVar{x@x},
-    s_all -> d with typeOfDecl TVAR(d),
-    T == all(s_all, x, typeOfTypeExp(s_all, t)).
-        
-  typeOfTypeExp(s, VarType(x)) = T :-
-    typeOfDecl of TVar{x@x} in s |-> [(_, (_, T))].
+    typeEq(U, T).
 
 rules
 
@@ -128,142 +132,98 @@ rules
 
   typeEq(NUM(), NUM()).
 
-  typeEq(FUN(T_arg, T_ret), FUN(S_arg, S_ret)) :-
-    typeEq(T_arg, S_arg),
-    typeEq(T_ret, S_ret).
+  typeEq(FUN(T_arg, T_ret), FUN(U_arg, U_ret)) :-
+    typeEq(T_arg, U_arg),
+    typeEq(T_ret, U_ret).
 
-  typeEq(S@PROJ(_, _), T) :- typeEq(strict(S), T).
+  typeEq(T@PROJB(_), U) :- typeEq(strict(T), U).
 
-  typeEq(S, T@PROJ(_, _)) | S != PROJ(_, _) :- typeEq(S, strict(T)).
+  typeEq(U, T@PROJB(_)) | U != PROJB(_) :- typeEq(U, strict(T)).
 
-  typeEq(PL(s1), PL(s2)) | s1 == s2.
+  typeEq(PL(X), PL(Y)) | X == Y.
 
-  typeEq(ALL(s_all1), ALL(s_all2)) :- {d_fresh}
-    new d_fresh,
-    typeEq(
-      body(instWith(s_all1, paramOf(s_all1), PL(d_fresh)))
-    , body(instWith(s_all2, paramOf(s_all2), PL(d_fresh)))
-    ).
+  typeEq(ALL(X, s_all1), ALL(Y, s_all2)) :- {Z s_inst1 s_inst2}
+    new Z,
+    new s_inst1, s_inst1 -I-> s_all1, s_inst1 -> X with subst PL(Z),
+    new s_inst2, s_inst2 -I-> s_all2, s_inst2 -> Y with subst PL(Z),
+    typeEq(PROJB(s_inst1), PROJB(s_inst2)).
 
-  typeEq(TVAR(d1), TVAR(d2)) | d1 == d2. // Should not occur in programs with no free type variables
-
-
-rules // Abbreviation for resolving a parameter via a reference
-
-  paramOf: scope -> occurrence
-  paramOf(s) = d :-
-    query typeOfDecl filter instantiationPathMatch and { TVar{_@_} }
-          in s |-> [(_, (_, TVAR(d)))].
+  typeEq(TVAR(X), TVAR(Y)) | X == Y. // Should not occur in programs with no free type variables
 
 rules
-
-  namespace TBody :
-  resolve TBody filter instantiationPathMatch min instantiationPathOrd
-
-  body: scope -> Type
-  body(s) = PROJ(s, TBody{@-}).
-
-  all: scope * ID * Type -> Type
-  all(s_all, x, T) = ALL(s_all) :-
-    !typeOfDecl[TBody{@x}, T] in s_all.
-
-rules // Reference resolution for body
-
-  instantiationPathMatch : list(label)
-  instantiationPathOrd   : label * label
-
-  instantiationPathMatch(p)    :- pathMatch[I*](p).
-  instantiationPathOrd(p1, p2) :- pathLt[I < $](p1, p1). // longest path
-
-//////////////////////////////////
-// SUBSTITUTION & NORMALIZATION //
-//////////////////////////////////
-
-rules
-
-  relation subst : occurrence -> Type
-
-  instWith: scope * occurrence * Type -> scope
-  instWith(s, d, T) = s_inst :-
-    new s_inst, s_inst -I-> s, !subst[d, T] in s_inst.
-
-rules // forces normalization of a postponed projection
 
   strict : Type -> Type
+  
+  strict(PROJB(s)) = T :- {p U ss}
+    query body filter pathMatch[I*] min pathLt[$ < I] in s |-> [(p, U)],
+    [_|ss] == reverseOfScopes(scopes(p)),
+    strictp(ss, U) == T.
+  
+  strict(T) = T | T != PROJB(_).
 
-  strict(PROJ(s, r)) = T :- {p S}
-    typeOfDecl of r in s |-> [(p, (_, S))],
-    norm(scopes(p), S) == T.
+rules
 
-  strict(T) = T' | T != PROJ(_, _) :- T == T'.
+  strictp : list(scope) * Type -> Type
+  
+  strictp([], T) = T.
+  
+  strictp(p, T@PROJB(s)) = strictp(p, strict(T)) | p != [].
+  
+  strictp(p, NUM()) = NUM() | p != [].
 
-rules // type normalization
+  strictp(p, PL(X)) = PL(X) | p != [].
+  
+  strictp(p, FUN(T1, T2)) = FUN(strictp(p, T1), strictp(p, T2)) | p != [].
+  
+  strictp([s|p], ALL(X, s_all)) = strictp(p, ALL(X, s_inst)) :- {Y T}
+    query subst filter pathMatch[e] in s |-> [(_, (Y, T))],
+    new s_inst, s_inst -I-> s_all, s_inst -> Y with subst T.
+  
+  strictp([s|p], TVAR(X)) = strictpVarR(p, X, hasSubst(s)).
+  
+  // where
+    
+     strictpVarR : list(scope) * occurrence * HasSubst -> Type
+     
+     strictpVarR(p, X, Yes(X, T)) = strictp(p, T).
+     
+     strictpVarR(p, X, Yes(Y, T)) = strictp(p, TVAR(X)) | X != Y.
+  
+     strictpVarR(p, X, No())      = strictp(p, TVAR(X)). // Should not occur
+  
+signature 
 
-  norm: list(scope) * Type -> Type
-  norm([], T) = T.
-  norm(ss@[_|_], T) = normR(reverseScopes(ss), T).
+  sorts HasSubst constructors
+    Yes : occurrence * Type -> HasSubst
+    No  : HasSubst
 
-  normR: list(scope) * Type -> Type
+rules
+  
+  hasSubst : scope -> HasSubst
 
-  normR([], T) = T.
+  hasSubst(s) = hasSubstR(r) :-
+    query subst filter pathMatch[e] in s |-> r.
 
-  normR([_|_], NUM()) = NUM().
+  // where
 
-  normR(ss@[_|_], FUN(S, T)) = FUN(normR(ss, S), normR(ss, T)).
+     hasSubstR : list((path * (occurrence * Type))) -> HasSubst
+     
+     hasSubstR([(_, (X, T))]) = Yes(X, T).
+     
+     hasSubstR([]) = No().
+     
+     hasSubstR([_|[_|_]]) = No(). // Should not occur
 
-  normR([s|ss], TVAR(d_tvar)) = normVar(s, ss, d_tvar).
+rules // Scope list reversal
 
-  normR(ss@[_|_], S@PROJ(_, _)) = normR(ss, strict(S)).
+  reverseOfScopes : list(scope) -> list(scope)
+  
+  reverseOfScopes(ss) = reverseOfScopesR(ss, []).
+  
+  // where
 
-  normR([s|ss], ALL(s_all)) = normAll(s, ss, s_all).
-
-  normR([_|_], T@PL(_)) = T.
-
-
-  normAll: scope * list(scope) * scope -> Type
-  normAll2: list((path * (occurrence * Type))) * list(scope) * scope -> Type
-
-  normAll(s, ss, s_all) = U :- {PDTs}
-    query subst filter { p :- pathMatch[e](p) }
-                in s |-> PDTs,
-    normAll2(PDTs, ss, s_all, U).
-
-  normAll2([(_, (d, S))], ss, s_all) = normR(ss, ALL(instWith(s_all, d, S))).
-  normAll2([], ss, s_all) = normR(ss, ALL(s_all)).
-
-
-    // assumes that there is only one substitution in each scope; 
-    // safe for single-argument type binders in System F
-    // add an instantiation scope; i.e., delay the substitution; no expansion
-
-  normVar: scope * list(scope) * occurrence -> Type
-  normVar2: list(Type) * list(scope) * occurrence -> Type
-
-  normVar(s, ss, d_tvar) = U :- {Ts}
-    substV(s, d_tvar, Ts),
-    normVar2(Ts, ss, d_tvar, U).
-
-  normVar2([T], ss, d_tvar) = normR(ss, T).
-  normVar2([], ss, d_tvar) = normR(ss, TVAR(d_tvar)).
-
-rules // reverse list of scopes
-
-  reverseScopes : list(scope) -> list(scope)
-  reverseScopes(ss) = reverseScopesR(ss, []).
-
-  reverseScopesR : list(scope) * list(scope) -> list(scope)
-  reverseScopesR([], ss) = ss.
-  reverseScopesR([s|ss], ss') = reverseScopesR(ss, [s|ss']).
-
-rules // substitution
-
-  substV : scope * occurrence -> list(Type)
-
-  substV(s, d) = substPs2Vs(ps) :-
-    query subst filter { p :- pathMatch[e](p) } and { d' :- d' == d }
-                 in s |-> ps.
-
-  substP2V : (path * (occurrence * Type)) -> Type
-  substPs2Vs maps substP2V(list(*)) = list(*)
-
-  substP2V((_, (_, T))) = T' :- T == T'.
+     reverseOfScopesR : list(scope) * list(scope) -> list(scope)
+     
+     reverseOfScopesR([], ss) = ss.
+     
+     reverseOfScopesR([s|ss], ss') = reverseOfScopesR(ss, [s|ss']).
