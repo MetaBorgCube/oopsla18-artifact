@@ -7,34 +7,34 @@ test record literal [[
 ]] analysis succeeds
 
 test record extension [[
-  {x = 1, y = 2, h = {}} with {p = 5} 
+  {p = 5} extends {x = 1, y = 2, h = {}}
 ]] analysis succeeds
 
 test record projection [[
-  {x = 1, y = 2, h = {}}.x 
+  {x = 1, y = 2, h = {}}.x
 ]] analysis succeeds
 
 test record mis projection [[
-  {x = 1, y = 2, h = {}}.z 
+  {x = 1, y = 2, h = {}}.z
 ]] analysis fails
 
 test record projection [[
-  type point = {x : num, y : num} in 
-    fun(p : point) { p.x + p.y } 
+  type point = {x : num, y : num} in
+    fun(p : point) { p.x + p.y }
 ]] analysis succeeds
 
 test record application [[
-  type point = {x : num, y : num} in 
+  type point = {x : num, y : num} in
     (fun(p : point) { p.x + p.y } {x = 1, y = 2}) : num
 ]] analysis succeeds
 
 test record subtype [[
-  type point = {x : num, y : num} in 
+  type point = {x : num, y : num} in
     (fun(p : point) { p.x + p.y } {x = 1, y = 2, z = 3}) : num
 ]] analysis succeeds
 
 test record not a subtype [[
-  type point = {x : num, y : num} in 
+  type point = {x : num, y : num} in
     (fun(p : point) { p.x + p.y } {x = 1, z = 3}) : num
 ]] analysis fails
 
@@ -51,44 +51,44 @@ test nested record not a subtype [[
 ]] analysis fails
 
 test record extension 1 [[
-  type point = {x : num, y : num} in 
+  type point = {x : num, y : num} in
   type color = num in
-  type colorpoint = point with {c : color} in
+  type colorpoint = {c : color} extends point in
     {x = 1, y = 5, c = 6} : colorpoint
 ]] analysis succeeds
 
 test record extension 2 [[
-  type point = {x : num, y : num} in 
+  type point = {x : num, y : num} in
   type color = num in
-  type colorpoint = point with {c : color} in
-    ({x = 1} with {y = 5, c = 6}) : colorpoint
+  type colorpoint = {c : color} extends point in
+    ({y = 5, c = 6} extends {x = 1}) : colorpoint
 ]] analysis succeeds
 
 test record extension 3 [[
-  type point = {x : num, y : num} in 
+  type point = {x : num, y : num} in
   type color = num in
-  type colorpoint = point with {c : color} in
-    ({c = 6} with {x = 1} with {y = 5}) : colorpoint
+  type colorpoint = {c : color} extends point in
+    ({y = 5} extends {x = 1} extends {c = 6}) : colorpoint
 ]] analysis succeeds
 
 test record extension 4 [[
-  type point = {x : num, y : num} in 
+  type point = {x : num, y : num} in
   type color = num in
-  type colorpoint = point with {c : color} in
-    ({c = 6} with {y = 5}) : colorpoint
+  type colorpoint = {c : color} extends point in
+    ({y = 5} extends {c = 6}) : colorpoint
 ]] analysis fails
 
 test record extension [[
-  type point = {x : num, y : num} in 
+  type point = {x : num, y : num} in
   let  mkpoint = fun(x : num) { {x = x, y = x} } in
   type color = num in
-  type colorpoint = point with {c : color} in
-  let  addColor = fun(c : num) { fun(p : point) { (p with {c = c}) : colorpoint } } in
+  type colorpoint = {c : color} extends point in
+  let  addColor = fun(c : num) { fun(p : point) { ( {c = c} extends p) : colorpoint } } in
     (addColor 6 (mkpoint 4)) : colorpoint
 ]] analysis succeeds
 
 test record extension subtype [[
-  fun(r : {y : num}) { r } ({x = 1} with {y = 3}) 
+  fun(r : {y : num}) { r } ( {y = 3} extends {x = 1})
 ]] analysis succeeds
 
 test type ascription subtype [[
@@ -104,13 +104,35 @@ test duplicate field name 2 [[
 ]] analysis fails
 
 test duplicate record field extension 1 [[
-  {x = 1} with {x = 2}
+  {x = 2} extends {x = 1}
 ]] analysis succeeds
 
 test duplicate record field extension 2 [[
-  {x = 1} with {x = {y = 2}}
+  {x = {y = 2}} extends {x = 1}
 ]] analysis succeeds
 
 test duplicate record field fun type [[
-  fun (r : {x : num}) { r with {y = 3} } {x = 1, y = 2}
+  fun (r : {x : num}) { {y = 3} extends r } {x = 1, y = 2}
+]] analysis succeeds
+
+test with simple record [[
+  with { x = 1 } do
+  (x : num)
+]] analysis succeeds
+
+test with extended record [[
+  with ({ x = 1 } extends { y = 4 }) do
+  x + y
+]] analysis succeeds
+
+test with within let [[
+  let x = {} in
+  with { x = 2 } do
+  (x : num)
+]] analysis succeeds
+
+test let within with [[
+  with { x = 2 } do
+  let x = {} in
+  (x : {})
 ]] analysis succeeds

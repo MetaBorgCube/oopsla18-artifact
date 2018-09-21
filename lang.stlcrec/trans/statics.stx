@@ -1,43 +1,40 @@
 module statics // Static semantics of STLCrec using scopes-as-types
 
 signature
-  sorts ID = string                         // $x$
-  sorts BinOp                               // $op$
 
-  sorts Exp constructors                    // $e$ :=
-    Num     : int -> Exp                    //      | $n$
-    Plus    : Exp * Exp -> Exp      		//      | $e$ + $e$
-    Fun     : ID * TypeExp * Exp -> Exp     //      | fun ($x$ : $te$) { $e$ }
-    Var     : ID -> Exp                     //      | $x$
-    App     : Exp * Exp -> Exp              //      | $e$ $e$
-    Rec     : list(FldInit) -> Exp          //      | { $finit^\ast$ }
-    FAccess : Exp * ID -> Exp               //      | $e$.$x$
-    FExtend : Exp * list(FldInit) -> Exp    //      | { $e$ with $finit^\ast$ }
-    TypeLet : ID * TypeExp * Exp -> Exp     //      | type $x$ = $te$ in $e$
-    Let     : ID * Exp * Exp -> Exp         //      | type $x$ = $e$ in $e$
-    TAS     : Exp * TypeExp -> Exp          //      | $e$ : $te$
+  sorts ID = string
 
-  sorts FldInit constructors                // $finit$ :=
-    FldInit : ID * Exp -> FldInit           //          | $x$ = $e$
+  sorts Exp constructors                             // e :=
+    Num     : int -> Exp                             //    | n
+    Plus    : Exp * Exp -> Exp                       //    | e + e
+    Fun     : ID * TypeExp * Exp -> Exp              //    | fun (x : te) { e }
+    Var     : ID -> Exp                              //    | x
+    App     : Exp * Exp -> Exp                       //    | e e
+    Rec     : list(FldInit) -> Exp                   //    | { finit* }
+    FAccess : Exp * ID -> Exp                        //    | e.x
+    ERec    : Exp * Exp -> Exp                       //    | e extends e
+    With    : Exp * Exp -> Exp                       //    | with e do e
+    TypeLet : ID * TypeExp * Exp -> Exp              //    | type x = te in e
+    Let     : ID * Exp * Exp -> Exp                  //    | type x = e in e
+    TAS     : Exp * TypeExp -> Exp                   //    | e : te
 
-  sorts TypeExp constructors                // $te$ :=
-    NumType  : TypeExp                       //       | num
-    FunType  : TypeExp * TypeExp -> TypeExp  //       | $te$ -> $te$
-    RecType  : list(FldType) -> TypeExp      //       | { $ftype^\ast$ }
-    ERecType : TypeExp * list(FldType) -> TypeExp      //       | $te$ with { $ftype^\ast$ }
-    TypeRef  : ID -> TypeExp                 //       | $x$
+  sorts FldInit constructors                         // finit :=
+    FldInit : ID * Exp -> FldInit                    //        | x = e
 
-  sorts FldType constructors                // $ftype$ :=
-    FldType : ID * TypeExp -> FldType       //          | $x$ : $te$
+  sorts TypeExp constructors                         // te :=
+    NumType  : TypeExp                               //     | num
+    FunType  : TypeExp * TypeExp -> TypeExp          //     | te -> te
+    RecType  : list(FldType) -> TypeExp              //     | { ftype* }
+    ERecType : TypeExp * TypeExp -> TypeExp          //     | te extends te
+    TypeRef  : ID -> TypeExp                         //     | x
+
+  sorts FldType constructors                         // ftype :=
+    FldType : ID * TypeExp -> FldType                //        | x : te
 
   sorts Type constructors
     NUM   : Type
     FUN   : Type * Type -> Type
     REC   : scope -> Type
-
-  sorts Bool constructors
-    True  : Bool
-    False : Bool
 
   relations
     typeOfDecl : occurrence -> Type
@@ -48,9 +45,8 @@ signature
     Type : string
 
   name-resolution
-    labels P R
-    resolve Var filter pathMatch[P*] min pathLt[$ < P]
-    resolve Fld filter pathMatch[R*] min pathLt[$ < R]
+    labels P R E
+    resolve Fld filter pathMatch[(R|E)*] min pathLt[$ < R, $ < E, R < E]
 
 rules
 
@@ -76,8 +72,10 @@ rules
     typeOfExp(s_fun, e) == T.
 
   typeOfExp(s, Var(x)) = T :-
-    typeOfDecl of Var{x@x} in s |-> [(_, (_, T))].
-    
+    query typeOfDecl filter pathMatch[P*(R|E)*] and { d :- varOrFld(x, d) }
+                     min pathLt[$ < P, $ < R, $ < E, R < P, R < E] and true
+                     in s |-> [(_, (_, T))].
+
   typeOfExp(s, App(e1, e2)) = T :- {S U}
     typeOfExp(s, e1) == FUN(S, T),
     typeOfExp(s, e2) == U,
@@ -86,10 +84,15 @@ rules
   typeOfExp(s, Rec(finits)) = REC(rs) :-
     new rs, fieldInitsOK(s, finits, rs).
 
-  typeOfExp(s, FExtend(e, finits)) = REC(rs2) :- {rs1}
-    typeOfExp(s, e) == REC(rs1),
-    new rs2, rs2 -R-> rs1,
-    fieldInitsOK(s, finits, rs2).
+  typeOfExp(s, ERec(e1, e2)) = REC(rs) :- {rs1 rs2}
+    typeOfExp(s, e1) == REC(rs1),
+    typeOfExp(s, e2) == REC(rs2),
+    new rs, rs -R-> rs1, rs -E-> rs2.
+
+  typeOfExp(s, With(e1, e2)) = T :- {rs s_with}
+    typeOfExp(s, e1) == REC(rs),
+    new s_with, s_with -R-> rs, s_with -P-> s,
+    typeOfExp(s_with, e2, T).
 
   typeOfExp(s, FAccess(e, x)) = T :- {rs d}
     typeOfExp(s, e) == REC(rs),
@@ -104,7 +107,7 @@ rules
     new s_let, s_let -P-> s,
     s_let -> Var{x@x} with typeOfDecl typeOfExp(s, e1),
     typeOfExp(s_let, e2) == S.
-    
+
   typeOfExp(s, TAS(e, te)) = T :- {S}
     typeOfExp(s, e) == S,
     typeOfTypeExp(s, te) == T,
@@ -117,15 +120,11 @@ rules
 
   fieldInitOK(s, FldInit(x, e), rs) :- {T}
     rs -> Fld{x@x} with typeOfDecl typeOfExp(s, e),
-    unique(x, rs) == True().
+    unique(x, rs).
 
-  unique : ID * scope -> Bool
-  unique(x, s) = isSingleton(ps) :-
-    Fld{x@x} in s |-> ps.
-  
-  isSingleton : list((path * occurrence)) -> Bool
-  isSingleton([_]) = True().
-  isSingleton(x)   = False() | x != [_].
+  unique : ID * scope
+  unique(x, s) :-
+    Fld{x@x} in s |-> [_].
 
 rules
 
@@ -137,11 +136,11 @@ rules
 
   typeOfTypeExp(s, RecType(ftypes)) = REC(rs) :-
     new rs, fieldTypesOK(s, ftypes, rs).
-    
-  typeOfTypeExp(s, ERecType(te, ftypes)) = REC(rs2) :- {rs1}
-    typeOfTypeExp(s, te) == REC(rs1),
-    new rs2, rs2 -R-> rs1,
-    fieldTypesOK(s, ftypes, rs2).
+
+  typeOfTypeExp(s, ERecType(te1, te2)) = REC(rs) :- {rs1 rs2}
+    typeOfTypeExp(s, te1) == REC(rs1),
+    typeOfTypeExp(s, te2) == REC(rs2),
+    new rs, rs -R-> rs1, rs -E-> rs2.
 
   typeOfTypeExp(s, TypeRef(x)) = T :-
     typeOfDecl of Type{x@x} in s |-> [(_, (_, T))].
@@ -157,7 +156,7 @@ rules
 rules
 
   subType  : Type * Type
-  subField : scope * (path * occurrence) 
+  subField : scope * (path * occurrence)
   subFields maps subField(*, list(*))
 
   subType(NUM(), NUM()).
@@ -173,7 +172,13 @@ rules
 
   allFields: scope -> list((path * occurrence))
   allFields(s) = ps :-
-    query decl filter pathMatch[R*] and { Fld{_@_} }
-               min pathLt[$ < R] and { Fld{x@_}, Fld{x@_} }
+    query decl filter pathMatch[(R|E)*] and { Fld{_@_} }
+               min pathLt[$ < R, $ < E, R < E] and { Fld{x@_}, Fld{x@_} }
                in s |-> ps.
-               
+
+rules
+
+  varOrFld : string * occurrence
+
+  varOrFld(x, Var{x@_}).
+  varOrFld(x, Fld{x@_}).

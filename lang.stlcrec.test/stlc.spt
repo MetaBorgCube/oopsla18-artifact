@@ -44,7 +44,6 @@ test let [[
 ): num
 ]] analysis succeeds 
 
-
 test type let [[
   type int = num in 1 : int
 ]] analysis succeeds 
@@ -53,5 +52,3 @@ test type let [[
   type n2n = num -> num
     in fun(y : num) { y } : n2n
 ]] analysis succeeds 
-
-

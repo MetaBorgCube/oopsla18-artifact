@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dirs>
 <entry loc="/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home" stamp="1476801487000"/>
+<entry loc="/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home" stamp="1537279766000"/>
+<entry loc="/Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home" stamp="1537272330000"/>
 <entry loc="/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home" stamp="1528719545000"/>
 <entry loc="/Users/hendrik/slde/oopsla18-artifact.git/spoofax.app/jre/Contents/Home" stamp="1528816036000"/>
 </dirs>

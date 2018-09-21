@@ -19,30 +19,30 @@ lexical syntax
   LAYOUT         = "//" ~[\n\r]* NewLineEOF
   NewLineEOF     = [\n\r]
   NewLineEOF     = EOF
-  EOF            = 
+  EOF            =
 
 lexical restrictions
 
   // Ensure greedy matching for lexicals
-  
+
   CommentChar   -/- [\/]
   INT           -/- [0-9]
   ID            -/- [a-zA-Z0-9\_]
   LCID          -/- [a-zA-Z0-9\_]
   UCID          -/- [a-zA-Z0-9\_]
-  
+
   // EOF may not be followed by any char
-  
+
   EOF           -/- ~[]
-  
-  // Backslash chars in strings may not be followed by " 
-  
+
+  // Backslash chars in strings may not be followed by "
+
   BackSlashChar -/- [\"]
 
 context-free restrictions
 
   // Ensure greedy matching for comments
-  
+
   LAYOUT? -/- [\ \t\n\r]
   LAYOUT? -/- [\/].[\/]
   LAYOUT? -/- [\/].[\*]

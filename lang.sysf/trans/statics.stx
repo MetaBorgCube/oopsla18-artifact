@@ -1,24 +1,25 @@
 module statics // Static semantics of System F using scopes-as-types
 
 signature
+
   sorts ID = string
 
-  sorts Exp constructors                   // $e$ :=
-    Num     : ID -> Exp                    //      | $n$
-    Fun     : ID * TypeExp * Exp -> Exp    //      | \($x$ : $te$) { $e$ }
-    Var     : ID -> Exp                    //      | $x$
-    App     : Exp * Exp -> Exp             //      | $e$ $e$
-    TFun    : ID  * Exp -> Exp             //      | /\($X$) { $e$ }
-    TApp    : Exp * TypeExp -> Exp         //      | $e$[$te$]
-    Let     : ID  * Exp * Exp -> Exp       //      | let $x$ = $e$ in $e$
-    LetT    : ID * TypeExp * Exp -> Exp    //      | let $x$ : $te$ = $e$ in $e$
-    TAS     : Exp * TypeExp -> Exp         //      | $e$ : $t$
+  sorts Exp constructors                      // e :=
+    Num     : ID -> Exp                       //    | n
+    Fun     : ID * TypeExp * Exp -> Exp       //    | \(x : te) { e }
+    Var     : ID -> Exp                       //    | x
+    App     : Exp * Exp -> Exp                //    | e e
+    TFun    : ID  * Exp -> Exp                //    | /\(X) { e }
+    TApp    : Exp * TypeExp -> Exp            //    | e[te]
+    Let     : ID  * Exp * Exp -> Exp          //    | let x = e in e
+    LetT    : ID * TypeExp * Exp -> Exp       //    | let x : te = e in e
+    TAS     : Exp * TypeExp -> Exp            //    | e : t
 
-  sorts TypeExp constructors               // $te$ :=
-    NumType : TypeExp                      //       | num
-    FunType : TypeExp * TypeExp -> TypeExp //       | $te$ -> $te$
-    AllType : ID * TypeExp -> TypeExp      //       | $X$ => $te$
-    VarType : ID -> TypeExp                //       | $te$
+  sorts TypeExp constructors                  // te :=
+    NumType : TypeExp                         //     | num
+    FunType : TypeExp * TypeExp -> TypeExp    //     | te -> te
+    AllType : ID * TypeExp -> TypeExp         //     | X => te
+    VarType : ID -> TypeExp                   //     | te
 
   namespaces
     Var   : string
