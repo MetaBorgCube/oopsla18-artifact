@@ -2,13 +2,13 @@
 
 ## Artifact Description
 
-This is the artifact accompanying the OOPSLA'18 submission 'Scopes as
-Types'. This artifact consists of the following:
+This is the artifact accompanying the OOPSLA'18 paper:
 
-- The paper draft in `scopes-as-types.pdf`, which is updated to match
-  the artifact. Note that the paper submitted as part of the HotCRP
-  submission, is the original draft, which may deviate in places from
-  this artifact.
+Hendrik van Antwerpen, Casper Bach Poulsen, Arjen Rouvoet, and Eelco
+Visser. 2018. Scopes as Types. _Proc. ACM Program. Lang. 2_, OOPSLA,
+Article 114 (November 2018), 30 pages. https://doi.org/10.1145/3276484
+
+This artifact consists of the following:
 
 - An implementation of the Statix language, embedded in the Spoofax
   language workbench. A test suite of unit tests for Statix is
@@ -38,10 +38,10 @@ tested.
 The case studies are implemented in the Spoofax language workbench,
 which supports Statix is one of its meta-languages.
 
-- Download the appropriate Spoofax 2.5.0 release for your platform from
-  https://www.metaborg.org/en/latest/source/release/stable.html.  It is
-  recommended to use a version with an included JRE, since they do not require
-  a compatible local Java installation.
+- Download the appropriate Spoofax 2.5.0 release for your platform
+  from https://www.metaborg.org/en/latest/source/release/stable.html.
+  It is recommended to use a version with an included JRE, since they
+  do not require a compatible local Java installation.
 
 - Install and run Spoofax by unpacking the archive, and starting
   `eclipse` or `eclipse.exe`. When Spoofax is started, it will ask for
@@ -106,57 +106,42 @@ The `statix.test` project contains unit tests for Statix itself.
 
 This artifact supports the following claims from the paper:
 
-> "We show that viewing scopes as types enables us to model the
-> internal structure of types in a range of non-simple type systems
-> (including structural records and generic classes) using the generic
-> representation of scopes. Further, we show that relations between
-> such types can be expressed in terms of generalized scope graph
-> queries. We extend scope graphs with scoped relations and queries."
+> We show that viewing scopes as types enables modeling the internal
+> structure of types in a range of interesting type systems, including
+> structural records and generic classes, using the generic
+> representation of scopes.
 
 The specifications of all three languages model non-syntactic aspects
 of types, such as record and class structure, or type variables and
 lazy substitution, using the scope graph model.
 
-> "We extend the scope graph model with scoped relations to model the
-> association of types with declarations and explicit substitutions in
-> the instantiation of parametrized types. We generalize name
-> resolution in scope graph from resolution from references to
-> declarations to general queries for scoped relations. This enables
-> flexible definition of queries for reachable or visible declarations
-> and other properties, such as the visible record fields in the
-> definition of subtyping of structural record types."
+> We extend the scope graph framework of Néron et al. [2015] and Van
+> Antwerpen et al. [2016] with scoped relations to model the
+> association of types with declarations and the representation of
+> explicit substitutions in the instantiation of parameterized
+> types. We generalize name resolution from resolution of references
+> to general queries for scoped relations. Furthermore, visibility
+> policies, which were global (per language), can be defined per
+> query, enabling namespace-specific visibility policies. We simplify
+> the framework by not including imports as a primitive, since these
+> can be encoded using the scopes-as-types approach.
 
 This extended model and a resolution algorithm are implemented as part of the
 Statix implementation. Many tests for different resolution scenarios are
 included in the `statix.test` project, in the `scopegraphs` directory.
 
-> "We introduce Statix, a declarative, language for specifying type
-> systems. The language provides simple guarded rules for definition
-> of user-defined constraints with unification and scope graph
-> construction and resolution as built-in theories. We provide a
-> declarative and an operational semantics of Statix."
+> We introduce Statix, a declarative language to specify type
+> systems. The language provides simple guarded rules for the
+> definition of user-defined constraints with unification, scope graph
+> construction, and name resolution as built-in theories. We provide a
+> formal definition of the declarative semantics of Statix.
 
 The Statix language, including a type checker and a solver, are implemented and
 included as a part of Spoofax. The tests in `statix.test` document and test the
 behavior of the solver for different Statix programs.
 
-> "We simplify the resolution calculus and algorithm of Néron et
-> al. [2015a] and Van Antwerpen et al. [2016] by not including imports
-> as a primitive. We demonstrate how imports (and other name- and
-> type-dependent name resolution schemas) can be encoded using the
-> scopes as types approach. We discuss how these patterns depend on
-> resolution in incomplete scope graphs, and how the algorithm
-> guarantees soundness of resolution in incomplete graphs. We further
-> generalize resolution by namespace/query-specific parameterization
-> with visibility policies instead of global policies."
-
-The case study specifications implement binding patterns -- such as
-class inheritance -- using the simplified model that is a part of
-Statix. In earlier work, these patterns were implemented using the
-import mechanism. Global resolution policies, for example how to
-resolve methods or variables in FGJ, are provided in the Statix
-language for convenience, but every query can redefine every parameter
-of the resolution calculus.
+> We discuss the execution model of Statix and how it guarantees
+> soundness of resolution in incomplete graphs.
 
 Statix provides integrated support for guaranteeing that resolution in
 incomplete graphs is safe, following the principles discussed in the
@@ -164,10 +149,12 @@ paper Section 5.2. Specific tests for this behavior can be found in
 the `statix.test` project, in `scopegraphs/relations.spt`;
 search for tests with _incomplete_ in the name.
 
-> "We have evaluated the Statix language in three case studies: the
-> simply-typed lambda calculus with records [Pierce 2002] (STLC-REC),
-> System F [Girard 1972; Reynolds 1974], and Featherweight Generic
-> Java [Igarashi et al. 2001]."
+> We evaluate the scopes-as-types approach and the Statix language in
+> three case studies: the simply-typed lambda calculus with records
+> (featuring structural sub-typing) [Pierce 2002] (STLC-REC), System F
+> (featuring parametric types) [Girard 1972; Reynolds 1974], and
+> Featherweight Generic Java (featuring generic class types) [Igarashi
+> et al. 2001].
 
 The artifact contains type checkers for the case study
 languages. These type checkers are not (yet) meant to be efficient,
@@ -178,11 +165,9 @@ trust in the correctness of the given specifications.
 The following claims from the paper are not supported by this
 artifact:
 
-> "We extend the visual notation of scope graph diagrams with scoped
-> relations, which provides a useful language for explaining patterns
-> of names and types in programming languages. We also extend the
-> visual notation with unresolved (constraint) nodes for illustrating
-> the resolution process."
+> We extend the visual notation of scope graph diagrams with scoped
+> relations, which provides a useful language to explain patterns of
+> names and types in programming languages.
 
 The visual notation that the paper introduces and demonstrates is not
 a part of Statix or of its output.
