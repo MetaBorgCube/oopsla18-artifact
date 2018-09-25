@@ -36,7 +36,7 @@ tested.
 ### Getting Spoofax and Building the Language Projects
 
 The case studies are implemented in the Spoofax language workbench,
-which supports Statix is one of its meta-languages.
+which supports Statix as one of its meta-languages.
 
 - Download the appropriate Spoofax 2.5.0 release for your platform
   from https://www.metaborg.org/en/latest/source/release/stable.html.
